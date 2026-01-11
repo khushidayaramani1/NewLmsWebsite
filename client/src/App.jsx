@@ -14,6 +14,7 @@ import AddCourse from './pages/educator/AddCourse.jsx';
 import Mycourses from './pages/educator/Mycourses.jsx';
 import StudentEnrolled from './pages/educator/StudentEnrolled.jsx';
 import Navbar from './component/student/Navbar.jsx';
+import Paste from './pastes/Paste.jsx';
 
 function App() {
   let isEducatorRoute = useMatch('/educator/*')
@@ -33,6 +34,8 @@ function App() {
             <Route path='my-courses' element={<Mycourses/>}/>
             <Route path='student-enrolled' element={<StudentEnrolled/>}/>
           </Route>
+          <Route path="/paste" element={<Paste/>}></Route>
+           
         </Routes>  
       </>
     )

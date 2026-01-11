@@ -12,7 +12,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for testing
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/clerk/**").permitAll()
-                        .requestMatchers("/addCourseDetail").permitAll()// Allow everyone to access this URL
+                        .requestMatchers("/addCourseDetail").permitAll()
+                        .requestMatchers("/pasteData").permitAll()// Allow everyone to access this URL
                         .anyRequest().authenticated()            // Lock everything else
                 );
 

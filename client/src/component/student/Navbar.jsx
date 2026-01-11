@@ -14,8 +14,6 @@ const Navbar = () => {
   const {openSignIn} =useClerk()
   const {user, isSignedIn, isLoaded} = useUser()
 
-  
-
   useEffect(()=>{
     if (isLoaded && isSignedIn){
        

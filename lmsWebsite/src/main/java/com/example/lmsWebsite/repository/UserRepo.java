@@ -10,5 +10,4 @@ public interface UserRepo extends JpaRepository<User,Long> {
     // Just a definition - No "=" sign here!
     User findByClerkId(String clerkId);
 
-
 }
