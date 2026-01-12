@@ -1,9 +1,12 @@
 import React from 'react'
 import { dummyCourses } from "../../assets/assets/assets.js"
+import { useNavigate } from 'react-router-dom'
 
 const MyEnrollement = () => {
 
   const data = dummyCourses
+
+  const navigate = useNavigate()
 
   const calcDuration = (course) => {
     let total = 0;
@@ -15,6 +18,8 @@ const MyEnrollement = () => {
     })
     return total;
   }
+
+   
 
   return (
      
@@ -36,27 +41,29 @@ const MyEnrollement = () => {
               const duration = calcDuration(elem);
               
               return(
-                <tr key={index} className='border-b border-gray-200'>
-                  {/* FIX 2: Use <td> for body, not <th> */}
-                  <td className='py-4'>
-                    <div className='flex items-center gap-x-5'>
-                      <img className='w-24 h-14 object-cover' src={elem.courseThumbnail} alt="" />
-                      <p className='text-lg'>{elem.courseTitle}</p>
-                    </div>
-                  </td>
-                  <td className='py-4 text-lg'>
-                    {/* FIX 3: Use the variable we calculated above */}
-                    {Math.floor(duration/60)} hrs {duration % 60} mins
-                  </td>
-                  <td className='py-4 text-lg'>
-                      {/* Placeholder */}
-                      0 / {elem.courseContent.length}
-                  </td>
-                  <td className='py-4 text-lg'>
-                      {/* Placeholder */}
-                      On Going
-                  </td>
-                </tr>
+                <> 
+                  <tr key={index} className='border-b border-gray-200'>
+                    {/* FIX 2: Use <td> for body, not <th> */}
+                    <td className='py-4'>
+                      <div className='flex items-center gap-x-5'>
+                        <img className='w-24 h-14 object-cover' src={elem.courseThumbnail} alt="" />
+                        <p onClick={()=>navigate(`/player/${elem.id}`)} className='text-lg'>{elem.courseTitle}</p>
+                      </div>
+                    </td>
+                    <td className='py-4 text-lg'>
+                      {/* FIX 3: Use the variable we calculated above */}
+                      {Math.floor(duration/60)} hrs {duration % 60} mins
+                    </td>
+                    <td className='py-4 text-lg'>
+                        {/* Placeholder */}
+                        0 / {elem.courseContent.length}
+                    </td>
+                    <td className='py-4 text-lg'>
+                        {/* Placeholder */}
+                        On Going
+                    </td>
+                  </tr>
+                </>
               )
             })
           }

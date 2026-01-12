@@ -13,12 +13,13 @@ const Paste = () => {
     let [pasteArray, setAllPastes] = useState([]);
     const idFromUrl = searchParams.get("pasteId");
 
-//     if(idFromUrl){
-//         dispatch(updateToPastes());
-// ;   }
-//     else{
-//         dispatch(createToPastes());
-//     }
+    if(idFromUrl){
+        // dispatch(updateToPastes());
+        fetch()
+;   }
+    else{
+        // dispatch(createToPastes());
+    }
 
     const dispatch = useDispatch();
 
@@ -72,11 +73,22 @@ const Paste = () => {
         // .catch((error) => {
         //     console.error('Error:', error);
         // });
-         
     }
 
-  return (
+    const fetchPastes = () => {
+        fetch('http://localhost:8087/pasteData')
+        .then((response) => response.json())
+        .then((data) => {
+            setAllPastes(data);
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    };
+    console.log(fetchPastes)
 
+  return (
     <>
         <div className='h-screen   flex justify-center '>
             <div className='flex flex-col space-y-6!   my-10!  w-1/2  '>

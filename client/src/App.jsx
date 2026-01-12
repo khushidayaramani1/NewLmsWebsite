@@ -15,18 +15,25 @@ import Mycourses from './pages/educator/Mycourses.jsx';
 import StudentEnrolled from './pages/educator/StudentEnrolled.jsx';
 import Navbar from './component/student/Navbar.jsx';
 import Paste from './pastes/Paste.jsx';
+import EnrollToCourse from './component/student/EnrollToCourse.jsx';
+ 
 
 function App() {
   let isEducatorRoute = useMatch('/educator/*')
+  // let userDetails = useState({
+  //   userEmail:""
+  // })
+
     return(
       <>
-        {!isEducatorRoute && <Navbar/>}
+        {!isEducatorRoute && <Navbar  />}
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/course-list" element={<CourseList/>}/>
           <Route path="/course-list/:courseId" element={<CourseDetail/>}/>
+          <Route  path="/course-list/:courseId/enroll-to-course" element={<EnrollToCourse/>}/>
           <Route path="/my-enrollement" element={<MyEnrollement/>}/>
-          <Route path="/player/:courseId" element={<Player/>}/>
+          <Route path="/player/:playerId" element={<Player/>}/>
           <Route path="/loading/:path" element={<Loading/>}/>
           <Route path="/educator" element={<Educator/>}>
             <Route path='dashboard' element={<Dashboard/>}/>
@@ -35,7 +42,6 @@ function App() {
             <Route path='student-enrolled' element={<StudentEnrolled/>}/>
           </Route>
           <Route path="/paste" element={<Paste/>}></Route>
-           
         </Routes>  
       </>
     )

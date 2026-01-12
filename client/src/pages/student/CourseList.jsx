@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import SearchBar from '../../component/student/SearchBar'
 import CourseCard from '../../component/student/CourseCard'
 import { dummyCourses as dummyCourse } from "../../assets/assets/assets.js";
+// import EnrollToCourse from '../../component/student/EnrollToCourse.jsx';
+
 
 const CourseList = () => {
   const navigate = useNavigate();
