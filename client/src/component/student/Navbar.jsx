@@ -13,32 +13,31 @@ const Navbar = () => {
   const navigate = useNavigate()
   const {openSignIn} =useClerk()
   const {user, isSignedIn, isLoaded} = useUser()
-
+  
   useEffect(()=>{
     if (isLoaded && isSignedIn){
-       
       const userData = {
         clerkId: user.id,
         userName: user.fullName,
         email: user.primaryEmailAddress?.emailAddress
       };
     console.log("user in nav",userData)
-
     fetch('http://localhost:8087/addUser',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json', 
       },
       body: JSON.stringify(userData),
-    }).then((response) => response.json())
-    .then((data) => {
-      console.log('Success:', data);
     })
-    .catch((error) => {
-      console.error('Error:', error);   
-    })
+    // .then((response) => response.json())
+    // .then((data) => {
+    //   console.log('Success:', data);
+    // })
+    // .catch((error) => {
+    //   console.error('Error:', error);   
+    // })
     }
-  },[isLoaded,isSignedIn,user])
+  },[user, isSignedIn, isLoaded])
 
 
   return (

@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import { dummyCourses } from "../../assets/assets/assets.js";
+import { Navigate } from 'react-router-dom';
+ 
 
 const Player = () => {
-  const { playerId } = useParams();
+
+  const navigate = useNavigate();
+  const {courseId} = useParams();
+
   
   // 1. Find the specific course using the ID from the URL
-  const courseData = dummyCourses.find((course) => course.id === playerId );
+  const courseData = dummyCourses.find((elem) => elem.id === courseId );
 
   // 2. States for active lecture and progress tracking
   const [activeLecture, setActiveLecture] = useState(null);
@@ -25,7 +30,7 @@ const Player = () => {
     return (
       <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
         <h1 className="text-2xl font-bold text-red-500">Course Not Found</h1>
-        <p className="text-gray-600 mt-2">The ID "{playerId}" does not match any enrolled courses.</p>
+        <p className="text-gray-600 mt-2">The ID "{courseId}" does not match any enrolled courses.</p>
         <button 
           onClick={() => window.history.back()} 
           className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg"
@@ -50,6 +55,11 @@ const Player = () => {
     }
   };
 
+  function showPaste(){
+    console.log(courseId)
+    navigate(`/showPaste/${courseId}`)
+  }
+
   return (
     <div className="flex flex-col lg:flex-row h-screen bg-white overflow-hidden">
       <Toaster />
@@ -59,19 +69,22 @@ const Player = () => {
         <div className="max-w-4xl mx-auto">
           
           {/* Progress Bar */}
-          <div className="mb-6 bg-blue-50 p-5 rounded-2xl border border-blue-100">
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-sm font-bold text-blue-800">Your Course Progress</span>
-              <span className="text-sm font-bold text-blue-800">{progressPercent}% Completed</span>
+          <div className='flex  '> 
+            <div className="mb-6 bg-blue-50 p-5 rounded-2xl border border-blue-100 w-3/4 ">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm font-bold text-blue-800">Your Course Progress</span>
+                <span className="text-sm font-bold text-blue-800">{progressPercent}% Completed</span>
+              </div>
+              
+              <div className="w-full bg-blue-200 rounded-full h-3">
+                <div 
+                  className="bg-blue-600 h-3 rounded-full transition-all duration-700 ease-in-out" 
+                  style={{ width: `${progressPercent}%` }}
+                ></div>
+              </div>
             </div>
-            <div className="w-full bg-blue-200 rounded-full h-3">
-              <div 
-                className="bg-blue-600 h-3 rounded-full transition-all duration-700 ease-in-out" 
-                style={{ width: `${progressPercent}%` }}
-              ></div>
-            </div>
+            <button onClick={showPaste} className="hover:bg-blue-100 cursor-pointer text-md font-bold text-blue-800 mb-6 bg-blue-50 p-5 rounded-2xl border border-blue-100 w-1/6 ml-20! " >Take Notes</button>
           </div>
-
           {/* Player (Small Frame) */}
           <div className="relative w-full max-w-2xl mx-auto aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl group">
             <img 

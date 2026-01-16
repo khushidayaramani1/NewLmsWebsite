@@ -1,14 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect, use } from 'react';
 import { useUser } from '@clerk/clerk-react';
+import { set } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 
 const EnrollToCourse = () => {
   const [isEnrolled, setIsEnrolled] = useState(false);
 
   const { user, isSignedIn, isLoaded }  = useUser();
 
+  let {courseId}= useParams()
+
+  const [paymentData, setPaymentData] = useState({
+    userId: user?.id || "",
+    courseId:courseId,
+    email: user?.primaryEmailAddress?.emailAddress || "",
+    cardNo: "",
+    expiryDate: "",
+    cvc: "",
+  });
+
+  
+useEffect(() => {
+  if (isLoaded && isSignedIn && user) {
+    setPaymentData(prev => ({
+      ...prev,
+      userId: user.id,
+      email: user.primaryEmailAddress?.emailAddress || "",
+    }));
+  }
+}, [isLoaded, isSignedIn, user]);
+
+  function handleChange(e){
+    setPaymentData({
+      ...paymentData,
+      [e.target.name]: e.target.value
+    })
+  }
+
   const handleEnroll = () => {
     // This is where you'd normally call your database/API
     setIsEnrolled(true);
+     
+    console.log(paymentData)
+    fetch('http://localhost:8087/enrollCourse',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', 
+      },
+      body: JSON.stringify(paymentData),
+    })
   };
 
   if (isEnrolled) {
@@ -45,17 +85,17 @@ const EnrollToCourse = () => {
           <div className="flex flex-col space-y-3!">
             <div>
               <label className="block text-sm font-medium mb-1">Card Number</label>
-              <input type="text" placeholder="0000 0000 0000 0000" className="w-full p-3 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none transition" />
+              <input onChange={handleChange} name='cardNo' type="text" placeholder="0000 0000 0000 0000" className="w-full p-3 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none transition" />
             </div>
             
             <div className="flex gap-6">
               <div className="w-1/2">
                 <label className="block text-sm font-medium mb-1">Expiry Date</label>
-                <input type="text" placeholder="MM/YY" className="w-full p-3 border rounded-md outline-none focus:ring-2 focus:ring-blue-500" />
+                <input onChange={handleChange} name='expiryDate' type="text" placeholder="MM/YY" className="w-full p-3 border rounded-md outline-none focus:ring-2 focus:ring-blue-500" />
               </div>
               <div className="w-1/2">
                 <label className="block text-sm font-medium mb-1">CVC</label>
-                <input type="text" placeholder="123" className="w-full p-3 border rounded-md outline-none focus:ring-2 focus:ring-blue-500" />
+                <input onChange={handleChange} name='cvc' type="text" placeholder="123" className="w-full p-3 border rounded-md outline-none focus:ring-2 focus:ring-blue-500" />
               </div>
             </div>
           </div>

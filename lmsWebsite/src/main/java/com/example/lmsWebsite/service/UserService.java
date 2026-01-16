@@ -14,6 +14,9 @@ public class UserService {
         User u = userRepo.findByClerkId(clerkId);
         return u;
     }
+    public void addUser(User user){
+        userRepo.save(user);
+    }
 
 
 }

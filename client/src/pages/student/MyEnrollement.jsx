@@ -1,8 +1,30 @@
 import React from 'react'
+import { useState,useEffect } from 'react'
 import { dummyCourses } from "../../assets/assets/assets.js"
 import { useNavigate } from 'react-router-dom'
+import { useUser } from '@clerk/clerk-react'
 
 const MyEnrollement = () => {
+
+  const { isSignedIn, user, isLoaded } = useUser()
+  // console(user.id)
+  if(isLoaded){
+    let userId = user.id;
+  }
+  let [cId,setListCid]= useState([])
+
+  useEffect(() => {
+    if (!isLoaded || !isSignedIn || !user) return;
+    
+
+    fetch(`http://localhost:8087/getAllCourses/${user.id}`)
+      .then((res) => res.json())
+      .then((data)=>setListCid(data))
+      .catch(err => console.error(err));
+
+      console.log(cId)
+       
+  }, [isLoaded, isSignedIn, user]);
 
   const data = dummyCourses
 
@@ -14,17 +36,17 @@ const MyEnrollement = () => {
     course.courseContent.forEach((chapter) => {
        chapter.chapterContent.forEach((lecture) => {
           total += lecture.lectureDuration
-       })
+       }) 
     })
     return total;
   }
 
    
-
   return (
      
     <div className='px-36 pt-10 text-2xl flex flex-col space-y-10!'>
       <div className='font-semibold mb-4'>My Enrollements</div>
+      {/* <button onClick={seeId} className='bg-blue-600'>click for id</button> */}
       <table className='w-full text-left'>
         <thead className='border-b border-gray-500'>
           <tr>
@@ -37,9 +59,10 @@ const MyEnrollement = () => {
         <tbody>
           { 
             data.map((elem, index) => {
-              // FIX 1: Calculate duration here (before the return)
-              const duration = calcDuration(elem);
-              
+            // FIX 1: Calculate duration here (before the return)
+            const duration = calcDuration(elem);
+            
+            if(cId.includes(elem.id)){
               return(
                 <> 
                   <tr key={index} className='border-b border-gray-200'>
@@ -65,6 +88,7 @@ const MyEnrollement = () => {
                   </tr>
                 </>
               )
+            }
             })
           }
         </tbody>

@@ -23,4 +23,14 @@ public class UserController {
         }
         return null;
     }
+
+    @PostMapping("/addUser")
+    public void addUser(@RequestBody User user){
+        try{
+            System.out.println(user.getUserName()+"-"+user.getEmail());
+            userService.addUser(user);
+        }catch(Exception e){
+            System.out.println("add user me koi toh message aya hai");
+        }
+    }
 }

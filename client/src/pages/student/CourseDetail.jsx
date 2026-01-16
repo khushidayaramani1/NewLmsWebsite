@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Navigate, useParams,useNavigate } from 'react-router-dom'
 import { dummyCourses } from "../../assets/assets/assets.js"
 import CourseDropdown from '../../component/student/CourseDropdown.jsx'
+import toast from 'react-hot-toast'
+import { useUser } from '@clerk/clerk-react'
 // import { useParams } from 'react-router-dom'
 
 const CourseDetail = () => {
@@ -9,6 +11,7 @@ const CourseDetail = () => {
   const { courseId } = useParams()
   const [myCourse, setMyCourse] = useState(null)
   const navigate = useNavigate()  
+  const {user, isSignedIn, isLoaded} = useUser()
 
   useEffect(() => {
     const foundCourse = dummyCourses.find(
@@ -17,11 +20,19 @@ const CourseDetail = () => {
     setMyCourse(foundCourse)
   }, [courseId])
 
-  // ⛑ safety
+   
   if (!myCourse) return <p>Loading course...</p>
 
   function handleEnrollClick(){
-    navigate(`/course-list/${courseId}/enroll-to-course`)
+    console.log(isSignedIn)
+    if(isSignedIn==false){
+      alert("please login or signup to enroll the course")
+      navigate('/sign-up')
+    }
+    else{
+      navigate(`/course-list/${courseId}/enroll-to-course`)
+    }
+     
   }
 
   return (
