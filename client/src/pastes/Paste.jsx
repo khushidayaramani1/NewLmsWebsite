@@ -4,22 +4,24 @@ import { FaRegCopy } from "react-icons/fa";
 import { toast, Toaster } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { usePDF } from 'react-to-pdf';
+import { FaFilePdf } from "react-icons/fa6";
+import { useReactToPrint } from "react-to-print";
+import { useRef } from 'react';
 
 
 const Paste = () => {
 
     const [searchParams, setSearchParams] = useSearchParams()
 
-    let [pasteArray, setAllPastes] = useState([]);
-    const idFromUrl = searchParams.get("pasteId");
+    const componentRef = useRef(null);
 
-    if(idFromUrl){
-        // dispatch(updateToPastes());
-        fetch()
-;   }
-    else{
-        // dispatch(createToPastes());
-    }
+    const handlePrint = useReactToPrint({
+        contentRef: componentRef
+    });
+    
+    let [pasteArray, setAllPastes] = useState([]);
+    const {courseId} = useParams()
 
     const dispatch = useDispatch();
 
@@ -32,8 +34,9 @@ const Paste = () => {
 
     function handleChange(e){
         setObj({...obj,[e.target.name]:e.target.value})
-        console.log(obj.title +"-"+ obj.content)
     }
+
+    // handle copy is for the text to copy
     function handleCopy(){
         if (obj.content) {
             navigator.clipboard.writeText(obj.content);
@@ -41,7 +44,6 @@ const Paste = () => {
         } else {
             toast.error("Nothing to copy!");
         }
-         
     }
      
     function handleCreatePaste(){
@@ -54,12 +56,13 @@ const Paste = () => {
         }
         setAllPastes([...pasteArray, newPaste]);
         console.log(pasteArray);
-        if(idFromUrl){
+        if(courseId){
             toast.success("Paste updated successfully!");
         }else{
             toast.success("Paste created successfully!");
         }
          
+        // post to put the data into the tables
         fetch('http://localhost:8087/pasteData',{
             method: 'POST',
             headers: {
@@ -70,12 +73,11 @@ const Paste = () => {
         .then((data) => {
             console.log('Success:', data);
         })
-        // .catch((error) => {
-        //     console.error('Error:', error);
-        // });
     }
 
-    const fetchPastes = () => {
+    // getting all data like all the paste
+    useEffect(()=>{
+        const fetchPastes = () => {
         fetch('http://localhost:8087/pasteData')
         .then((response) => response.json())
         .then((data) => {
@@ -85,20 +87,23 @@ const Paste = () => {
         .catch((error) => {
             console.error('Error:', error);
         });
-    };
-    console.log(fetchPastes)
+        };
+        console.log(fetchPastes)
+    },[])
+     
 
   return (
     <>
         <div className='h-screen   flex justify-center '>
-            <div className='flex flex-col space-y-6!   my-10!  w-1/2  '>
+            <div ref={componentRef} className='flex flex-col space-y-6!   my-10!  w-1/2  '>
                 <Toaster position="top-right" />
-                <div className=' flex items-center h-10 space-x-4'> 
-                    <input name='title' onChange={handleChange} type="text" className='px-4! h-full text-gray-800 bg-gray-200 w-full rounded-lg' placeholder='Title'   />
-                    <button onClick={handleCreatePaste} className='w-40 h-full rounded-lg border border-blue-600 text-blue-600 hover:bg-blue-300 hover:text-gray-600 hover:cursor-pointer'>{idFromUrl?"Edit Paste":"Create My Paste"}</button>
+                <div className=' flex items-center h-10 space-x-2!'  > 
+                    <input  name='title' onChange={handleChange} type="text" className='px-4! h-full text-gray-800 bg-gray-200 w-full rounded-lg' placeholder='Title'   />
+                    <FaFilePdf className='cursor-pointer' onClick={handlePrint}  size={50} />
+                    <button onClick={handleCreatePaste} className='w-40 h-full rounded-lg border border-blue-600 text-blue-600 hover:bg-blue-300 hover:text-gray-600 hover:cursor-pointer'>Create My Paste</button>
                 </div>
-                <div className='relative w-full'>
-                    <textarea name='content' rows={20} onChange={handleChange} className='p-4 text-black bg-gray-200 w-full rounded-lg outline-none' placeholder='Write your content here...' />
+                <div className='relative w-full'  >
+                    <textarea  name='content' rows={20} onChange={handleChange} className='p-4 text-black bg-gray-200 w-full rounded-lg outline-none' placeholder='Write your content here...' />
                     {/* Icon is pinned to the top right with absolute */}
                     <FaRegCopy onClick={handleCopy} size={22} className='absolute top-4 right-4 cursor-pointer text-gray-500 hover:text-black transition-colors' />
                 </div>
