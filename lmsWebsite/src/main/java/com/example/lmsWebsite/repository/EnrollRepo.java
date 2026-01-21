@@ -7,11 +7,15 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface EnrollRepo extends JpaRepository<Enroll,Integer> {
 
     @Query(value="select course_id from enroll where user_id=:userId",nativeQuery = true)
     public List<String> getEnrolledCoursesById(@Param("userId") String userId);
+
+    @Query(value = "select user_id,course_id from enroll;",nativeQuery = true)
+    public List<Map<String, Object>> getEnrolledUserCourse();
 
 }

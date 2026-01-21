@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class EnrollService {
@@ -18,5 +19,8 @@ public class EnrollService {
     }
     public List<String> getEnrolledCoursesById(String userId){
         return enrollRepo.getEnrolledCoursesById(userId);
+    }
+    public List<Map<String, Object>> getEnrolledUserCourse(){
+        return enrollRepo.getEnrolledUserCourse();
     }
 }

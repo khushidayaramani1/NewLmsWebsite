@@ -17,7 +17,9 @@ public class SecurityConfig {
                                 "/pasteData",
                                 "/addUser",
                                 "/enrollCourse",
-                                "/getAllCourses/**"
+                                "/getAllCourses/**",
+                                "/enrolled-to",
+                                "/get-username-coursename-by-id"
                         ).permitAll() // Allow everyone to access this URL
                         .anyRequest().authenticated()            // Lock everything else
                 );

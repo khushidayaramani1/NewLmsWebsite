@@ -29,15 +29,12 @@ const Navbar = () => {
       },
       body: JSON.stringify(userData),
     })
-    // .then((response) => response.json())
-    // .then((data) => {
-    //   console.log('Success:', data);
-    // })
-    // .catch((error) => {
-    //   console.error('Error:', error);   
-    // })
     }
   },[user, isSignedIn, isLoaded])
+
+  function handleEducator(){
+    console.log(user);
+  }
 
 
   return (
@@ -48,7 +45,7 @@ const Navbar = () => {
         <FaUser onClick={()=>openSignIn()} className="lg:hidden " /></>
       }
       {user && !isEducator &&(<div className=' text-gray-600 flex flex-row items-center'>
-        <Link to="/educator" className='hidden md:flex mx-1! hover:text-gray-700'>Become Educator</Link>
+        <Link to="/educator" onClick={handleEducator} className='hidden md:flex mx-1! hover:text-gray-700'>Become Educator</Link>
         <p className='md:flex mx-1! hidden'>|</p>
         <Link to="/my-enrollement" className='md:flex hidden mx-1! hover:text-gray-700'>My Enrollment</Link>
         <UserButton/>

@@ -17,13 +17,12 @@ import Navbar from './component/student/Navbar.jsx';
 import Paste from './pastes/Paste.jsx';
 import EnrollToCourse from './pages/student/EnrollToCourse.jsx'
 import { SignUp } from '@clerk/clerk-react';
+import SideBar from './pages/educator/SideBar.jsx';
  
 
 function App() {
-  let isEducatorRoute = useMatch('/educator/*')
-  // let userDetails = useState({
-  //   userEmail:""
-  // })
+  let isEducatorRoute = useMatch('/educator-dashboard/*')
+ 
 
     return(
       <>
@@ -39,11 +38,11 @@ function App() {
           <Route path="/loading/:path" element={<Loading/>}/>
           <Route path="/educator" element={<Educator/>}>
             <Route path='dashboard' element={<Dashboard/>}/>
-            <Route path='add-course' element={<AddCourse/>}/>
-            <Route path='my-courses' element={<Mycourses/>}/>
-            <Route path='student-enrolled' element={<StudentEnrolled/>}/>
-          </Route>
-          <Route path="/showPaste/:courseId" element={<Paste/>}></Route>
+            <Route path='add-course' element={<AddCourse/>}/> 
+            <Route path='my-courses' element={<Mycourses/>}/> 
+            <Route path='student-enrolled' element={<StudentEnrolled/>}/> 
+          </Route> 
+          <Route path="/showPaste/:courseId" element={<Paste/>}/> 
         </Routes>  
       </>
     )

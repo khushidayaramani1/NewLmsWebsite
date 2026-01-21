@@ -4,7 +4,7 @@ import home_icon from '../../assets/assets/home_icon.svg'
 import add_icon from '../../assets/assets/add_icon.svg'
 import my_course_icon from '../../assets/assets/my_course_icon.svg'
 import person_tick_icon from '../../assets/assets/person_tick_icon.svg'
- 
+import { Outlet } from 'react-router-dom'
 
 const SideBar = () => {
   const menuItems = [
@@ -16,7 +16,7 @@ const SideBar = () => {
 
   return (
     <>
-      <div className="flex flex-col text-gray-700  px-10! justify-start  w-max  border-l-gray-600 p-4">
+      <div className="w-64 h-screen  flex flex-col text-gray-700  px-10! justify-start  border-l-gray-600 p-4">
         {menuItems.map((item, index) => (
           <Link key={index} to={item.path} className="flex items-center gap-3 mb-4! text-lg">
             <img src={item.icon} alt={item.name} className="w-5 h-5" />
@@ -24,7 +24,9 @@ const SideBar = () => {
           </Link>
         ))}
       </div>
-       
+      <div>
+
+      </div>
     </>
   )
 }

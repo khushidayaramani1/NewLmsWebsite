@@ -5,6 +5,9 @@ import com.example.lmsWebsite.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
@@ -32,5 +35,10 @@ public class UserController {
         }catch(Exception e){
             System.out.println("add user me koi toh message aya hai");
         }
+    }
+
+    @GetMapping("/get-username-coursename-by-id")
+    public List<Map<String,Object>> getUsernameById(){
+        return userService.getUsernameById();
     }
 }

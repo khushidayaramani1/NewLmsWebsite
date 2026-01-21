@@ -4,6 +4,7 @@ import com.example.lmsWebsite.service.EnrollService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173/")
@@ -30,5 +31,10 @@ public class EnrollController {
             System.out.println("something went wrong in fetching id");
         }
         return null;
+    }
+
+    @GetMapping("/enrolled-to")
+    public List<Map<String,Object>> getEnrolledUserCourse(){
+        return enrollService.getEnrolledUserCourse();
     }
 }
