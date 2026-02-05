@@ -18,7 +18,7 @@ import Paste from './pastes/Paste.jsx';
 import EnrollToCourse from './pages/student/EnrollToCourse.jsx'
 import { SignUp } from '@clerk/clerk-react';
 import SideBar from './pages/educator/SideBar.jsx';
- 
+import Chat from './chatbot/Chat.jsx';
 
 function App() {
   let isEducatorRoute = useMatch('/educator-dashboard/*')
@@ -43,6 +43,7 @@ function App() {
             <Route path='student-enrolled' element={<StudentEnrolled/>}/> 
           </Route> 
           <Route path="/showPaste/:courseId" element={<Paste/>}/> 
+          <Route path='/chat' element={<Chat/>}/> 
         </Routes>  
       </>
     )

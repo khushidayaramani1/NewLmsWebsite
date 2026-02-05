@@ -1,4 +1,5 @@
 package com.example.lmsWebsite.config;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -6,12 +7,14 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Disable CSRF for testing
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
+                                "/chat",
                                 "/clerk/**",
                                 "/addCourseDetail",
                                 "/pasteData",
@@ -19,11 +22,12 @@ public class SecurityConfig {
                                 "/enrollCourse",
                                 "/getAllCourses/**",
                                 "/enrolled-to",
-                                "/get-username-coursename-by-id"
-                        ).permitAll() // Allow everyone to access this URL
-                        .anyRequest().authenticated()            // Lock everything else
+                                "/get-username-coursename-by-id",
+                                "/cricket",
+                                "/chat"
+                        ).permitAll()
+                        .anyRequest().authenticated()
                 );
-
         return http.build();
     }
 }

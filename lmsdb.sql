@@ -38,14 +38,7 @@ JOIN course c ON e.course_id = c.course_id;
 
 desc users;
 
-SELECT 
-    u.user_name,
-    c.course_title
-FROM enroll e
-JOIN users u 
-    ON e.user_id = u.clerk_id
-JOIN courses c 
-    ON e.course_id = c.id;
+SELECT u.user_name, c.course_title FROM enroll e JOIN users u ON e.user_id = u.clerk_id JOIN courses c ON e.course_id = c.id;
 
 
 
