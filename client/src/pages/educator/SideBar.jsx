@@ -8,7 +8,6 @@ import { Outlet } from 'react-router-dom'
 
 const SideBar = () => {
   const menuItems = [
-    { name: 'Dashboard', path: '/educator/dashboard', icon: home_icon },
     { name: 'Add Course', path: '/educator/add-course', icon: add_icon },
     { name: 'My Courses', path: '/educator/my-courses', icon: my_course_icon },
     { name: 'Student Enrolled', path: '/educator/student-enrolled', icon: person_tick_icon },

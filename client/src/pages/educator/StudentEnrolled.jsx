@@ -1,9 +1,10 @@
 import React, { useEffect,useState } from 'react'
 import {dummyStudentEnrolled as studentsEnrolled} from "../../assets/assets/assets.js";
+import { useUser } from '@clerk/clerk-react';
 
 const Mycourses = () => {
   const StudentData= studentsEnrolled;
-
+  const { user } = useUser();
   const [data,setData]= useState([])
 
   useEffect(()=>{
@@ -31,7 +32,7 @@ const Mycourses = () => {
             <tr key={index}>
               <td className='py-4 px-6'>
                 <div className='flex items-center gap-x-5'>
-                  <img className='w-24 h-14 object-cover' src='https://tse3.mm.bing.net/th/id/OIP.eoO0g6JWxtL09kWAPwUU1wHaHi?pid=Api&P=0&h=180' alt="here will be image" />
+                  <img className='w-24 h-14 object-cover' src={user.imageUrl}  alt="here will be image" />
                   <p className='text-lg'>{elem.user_name}</p>
                 </div>
               </td>

@@ -24,7 +24,8 @@ public class SecurityConfig {
                                 "/enrolled-to",
                                 "/get-username-coursename-by-id",
                                 "/cricket",
-                                "/chat"
+                                "/chat",
+                                "/set-isEducator"
                         ).permitAll()
                         .anyRequest().authenticated()
                 );

@@ -1,19 +1,16 @@
-import React from 'react'
-import SideBar from './SideBar'
-import { Outlet } from 'react-router-dom'
+import SideBar from "./SideBar"
+import { Outlet } from "react-router-dom"
 
 const Educator = () => {
   return (
     <div className="flex h-screen">
-
-      {/* Sidebar */}
+      {/* Sidebar stays fixed on the left */}
       <SideBar />
-
-      {/* Right content */}
+       
+      {/* This area will swap between Dashboard, AddCourse, etc. */}
       <div className="flex-1 p-6 overflow-y-auto">
         <Outlet />
       </div>
-
     </div>
   )
 }

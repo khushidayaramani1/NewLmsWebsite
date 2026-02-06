@@ -28,6 +28,7 @@ const AddCourse = () => {
         .then((response)=>{
             if(response.ok){
                 console.log("course added successfully")
+                console.log(courseInfo)
             }
             else{
                 console.log("error in adding course")

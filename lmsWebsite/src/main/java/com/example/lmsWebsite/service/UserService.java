@@ -24,5 +24,9 @@ public class UserService {
         return userRepo.getUsernameAndCourseNameById();
     }
 
+    public void setIsEducator(String clerkId){
+        userRepo.setIsEducator(clerkId);
+    }
+
 
 }

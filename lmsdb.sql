@@ -17,10 +17,6 @@ delete  from enroll where enroll_id=1 or enroll_id=2 or enroll_id=3;
 
 select course_id from enroll where user_id='user_38KaAKjXMxQpz804bP6L8bgWqry';
 
-
-
-
-
 select * from enroll;
 
 select user_id,course_id from enroll;
@@ -40,13 +36,13 @@ desc users;
 
 SELECT u.user_name, c.course_title FROM enroll e JOIN users u ON e.user_id = u.clerk_id JOIN courses c ON e.course_id = c.id;
 
+ALTER TABLE users 
+ADD COLUMN isStudent BOOLEAN DEFAULT true;
 
+alter table users drop column isStudent;
 
-
-
-
-
-
+select * from users;
+truncate users;
 
 
 

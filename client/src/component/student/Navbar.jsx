@@ -33,7 +33,10 @@ const Navbar = () => {
   },[user, isSignedIn, isLoaded])
 
   function handleEducator(){
-    console.log(user);
+    if (isLoaded && isSignedIn){
+      fetch(' http://localhost:8087/set-isEducator?clerkId='+user.id)
+      console.log("logged in as Educator"+user.fullName);
+    }
   }
 
 

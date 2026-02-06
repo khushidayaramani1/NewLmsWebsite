@@ -37,11 +37,12 @@ function App() {
           <Route path="/player/:courseId" element={<Player/>}/>
           <Route path="/loading/:path" element={<Loading/>}/>
           <Route path="/educator" element={<Educator/>}>
-            <Route path='dashboard' element={<Dashboard/>}/>
-            <Route path='add-course' element={<AddCourse/>}/> 
-            <Route path='my-courses' element={<Mycourses/>}/> 
-            <Route path='student-enrolled' element={<StudentEnrolled/>}/> 
-          </Route> 
+          {/* Add this line: index means this is the default page for /educator */}
+          {/* <Route index element={<Dashboard />} />  */}
+          <Route path='add-course' element={<AddCourse/>}/> 
+          <Route path='my-courses' element={<Mycourses/>}/> 
+          <Route path='student-enrolled' element={<StudentEnrolled/>}/> 
+        </Route>
           <Route path="/showPaste/:courseId" element={<Paste/>}/> 
           <Route path='/chat' element={<Chat/>}/> 
         </Routes>  

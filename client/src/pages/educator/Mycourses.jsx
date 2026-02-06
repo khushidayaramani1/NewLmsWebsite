@@ -12,7 +12,7 @@ const Mycourses = () => {
             <th className="pb-2 px-6">Student</th>
             <th className="pb-2 px-6">Published On</th>
           </tr>
-        </thead>
+        </thead>  
 
         <tbody className='divide-y divide-gray-200'>
           {courses.map((elem, index) => (

@@ -41,4 +41,10 @@ public class UserController {
     public List<Map<String,Object>> getUsernameById(){
         return userService.getUsernameById();
     }
+
+    @GetMapping("/set-isEducator")
+    public void setIsEducator(@RequestParam(value = "clerkId") String clerkId){
+        System.out.println("function called");
+        userService.setIsEducator(clerkId);
+    }
 }
