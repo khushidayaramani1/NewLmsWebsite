@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
+import {useUser} from '@clerk/clerk-react';
 
 const AddCourse = () => {
 
@@ -7,21 +8,25 @@ const AddCourse = () => {
 
     const formData = new FormData();
 
+    const {user} = useUser();
+
     function onSubmit(data){
         console.log("form data",data)
         const formData = new FormData();
-        formData.append("imageFile",data.thumbnailFileName[0]);
+        formData.append("imageFile",data.thumbnailName[0]);
     
         const courseInfo = {
             courseTitle: data.courseTitle,
-            courseHeading: data.courseHeading,
+            courseHeadings: data.courseHeadings,
             courseDescription: data.courseDescription,
-            coursePrice: data.coursePrice
+            coursePrice: data.coursePrice,
+            educatorId: user.id
         };
+
         const jsonBlob = new Blob([JSON.stringify(courseInfo)], { type: 'application/json' });
         formData.append("cd", jsonBlob);
 
-        fetch('http://localhost:8087/addCourseDetail',{
+        fetch('http://localhost:8087/add-course-detail',{
             method:'POST',
             body: formData
         })
@@ -46,7 +51,7 @@ const AddCourse = () => {
             </div>
             <div className='flex gap-3'>
                 <label htmlFor="" className='w-25'>Course Headings</label>
-                <input type="text" className='border border-gray-600 rounded-md w-70 ' {...register("courseHeading")}  />
+                <input type="text" className='border border-gray-600 rounded-md w-70 ' {...register("courseHeadings")}  />
             </div>
             <div className='flex gap-3'>
                 <label htmlFor="" className='w-25'>Course Description</label>
@@ -59,7 +64,7 @@ const AddCourse = () => {
                 </div>
                 <div className='flex '>
                     <label htmlFor="" className='w-25'>Course Thumbnail</label>
-                    <input type="file" className='border border-gray-600 rounded-md   w-70' {...register("thumbnailFileName")} />
+                    <input type="file" className='border border-gray-600 rounded-md   w-70' {...register("thumbnailName")} />
                 </div>
             </div>
             <button className='mt-10! self-center bg-gray-900 text-white font-semibold w-max p-1! rounded-md '>ADD</button>

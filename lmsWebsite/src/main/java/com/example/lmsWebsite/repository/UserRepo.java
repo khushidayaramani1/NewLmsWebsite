@@ -28,4 +28,6 @@ public interface UserRepo extends JpaRepository<User,Long> {
     nativeQuery = true)
     public int setIsEducator(@Param("clerkId") String clerkId);
 
+
+
 }

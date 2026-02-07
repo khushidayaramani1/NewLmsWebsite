@@ -16,7 +16,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/chat",
                                 "/clerk/**",
-                                "/addCourseDetail",
+                                "/add-course-detail",
                                 "/pasteData",
                                 "/addUser",
                                 "/enrollCourse",
@@ -25,7 +25,10 @@ public class SecurityConfig {
                                 "/get-username-coursename-by-id",
                                 "/cricket",
                                 "/chat",
-                                "/set-isEducator"
+                                "/set-isEducator",
+                                "/getImage",
+                                "/all-courses",
+                                "/all-id"
                         ).permitAll()
                         .anyRequest().authenticated()
                 );

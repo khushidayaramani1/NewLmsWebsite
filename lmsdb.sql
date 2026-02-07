@@ -43,6 +43,11 @@ alter table users drop column isStudent;
 
 select * from users;
 truncate users;
+select * from courses;
+update users set isEducator = false where clerk_id='user_38KaAKjXMxQpz804bP6L8bgWqry';
+
+
+
 
 
 

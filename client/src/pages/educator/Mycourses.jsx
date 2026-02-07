@@ -1,6 +1,10 @@
 import React from 'react'
 import {EducatorsCourses as courses} from "../../assets/assets/assets.js";
 const Mycourses = () => {
+
+  
+
+
   return (
     <div className=' text-2xl flex flex-col space-y-10!  '>
       <div className='font-semibold mb-4'>My Enrollements</div>
