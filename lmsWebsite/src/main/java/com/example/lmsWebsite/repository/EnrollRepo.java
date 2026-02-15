@@ -13,9 +13,12 @@ import java.util.Map;
 public interface EnrollRepo extends JpaRepository<Enroll,Integer> {
 
     @Query(value="select course_id from enroll where user_id=:userId",nativeQuery = true)
-    public List<String> getEnrolledCoursesById(@Param("userId") String userId);
+    public List<Integer> getEnrolledCoursesById(@Param("userId") String userId);
 
     @Query(value = "select user_id,course_id from enroll;",nativeQuery = true)
     public List<Map<String, Object>> getEnrolledUserCourse();
+
+    @Query(value="select count(enroll_id) from enroll where course_id=:courseId AND email =:email", nativeQuery = true)
+    int isEnrolled(@Param("courseId") int courseId, @Param("email") String email);
 
 }

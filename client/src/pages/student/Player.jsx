@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
-import { dummyCourses } from "../../assets/assets/assets.js";
+// import { dummyCourses } from "../../assets/assets/assets.js";
 import Chat from '../../chatbot/Chat.jsx';
 
 const Player = () => {
+
   const navigate = useNavigate();
   const { courseId } = useParams();
-
-  const courseData = dummyCourses.find((elem) => elem.id === courseId);
   const [activeLecture, setActiveLecture] = useState(null);
   const [completedLectures, setCompletedLectures] = useState([]);
+  const [courseData, setCourseData] = useState(null);
+
+  useEffect(() => {
+    fetch(`http://localhost:8087/get-by-id/${courseId}`)
+      .then(res => res.json())
+      .then(data => {
+        setCourseData(data);
+      })
+      .catch(err => {
+        console.error("Error fetching course data:", err);
+        toast.error("Failed to load course data");
+      });
+  }, [courseId]);
 
   useEffect(() => {
     if (courseData && courseData.courseContent.length > 0) {

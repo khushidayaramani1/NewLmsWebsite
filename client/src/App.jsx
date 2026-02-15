@@ -19,6 +19,7 @@ import EnrollToCourse from './pages/student/EnrollToCourse.jsx'
 import { SignUp } from '@clerk/clerk-react';
 import SideBar from './pages/educator/SideBar.jsx';
 import Chat from './chatbot/Chat.jsx';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   let isEducatorRoute = useMatch('/educator-dashboard/*')
@@ -27,6 +28,7 @@ function App() {
     return(
       <>
         {!isEducatorRoute && <Navbar  />}
+        <Toaster position="top-right" />
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/sign-up" element={<SignUp/>} /> 

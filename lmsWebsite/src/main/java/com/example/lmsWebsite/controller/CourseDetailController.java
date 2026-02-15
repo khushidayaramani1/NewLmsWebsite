@@ -1,6 +1,8 @@
 package com.example.lmsWebsite.controller;
 
+import com.example.lmsWebsite.model.Chapter;
 import com.example.lmsWebsite.model.CourseDetail;
+import com.example.lmsWebsite.model.Lecture;
 import com.example.lmsWebsite.service.CourseDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,21 +18,41 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
 public class CourseDetailController {
-
     @Autowired
     CourseDetailService courseDetailService;
-
     @PostMapping("/add-course-detail")
-    public ResponseEntity<?> addCourse(@RequestPart CourseDetail cd,
-                                       @RequestPart MultipartFile imageFile){
+    public ResponseEntity<?> addCourse(
+            // @RequestPart("cd") matches the 'cd' key in Frontend FormData
+            @RequestPart("cd") CourseDetail cd,
+            // required = false makes the image optional to prevent 400 errors if missing
+            @RequestPart(value = "imageFile", required = false) MultipartFile imageFile) {
         try {
-            CourseDetail cd1 = courseDetailService.addCourse(cd, imageFile);
-            return new ResponseEntity<>(cd1,HttpStatus.CREATED);
-        }
-//        catch(IOException e){
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-        catch(Exception e){
+            /* CRITICAL LOGIC:
+               In a nested JSON submission, the 'CourseDetail' object arrives with a list
+               of Chapters, but the Chapters don't "know" who their parent Course is yet.
+               We must manually set these references so JPA can fill the Foreign Key columns.
+            */
+            if (cd.getChapters() != null) {
+                for (Chapter chapter : cd.getChapters()) {
+                    // Link Chapter -> CourseDetail
+                    chapter.setCourseDetail(cd);
+
+                    if (chapter.getLectures() != null) {
+                        for (Lecture lecture : chapter.getLectures()) {
+                            // Link Lecture -> Chapter
+                            lecture.setChapter(chapter);
+                        }
+                    }
+                }
+            }
+
+            // Save the parent. CascadeType.ALL in the Entity will save chapters & lectures automatically.
+            CourseDetail savedCourse = courseDetailService.addCourse(cd, imageFile);
+            return new ResponseEntity<>(savedCourse, HttpStatus.CREATED);
+
+        } catch (Exception e) {
+            // Log the error to your console so you can see why it failed
+            e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -52,5 +74,15 @@ public class CourseDetailController {
     @GetMapping("/all-id")
     public List<Integer> findAllIds(){
         return courseDetailService.findAllIds();
+    }
+
+    @GetMapping("/get-by-id/{courseId}")
+    public ResponseEntity<?> getCourseDetailById(@PathVariable("courseId") int courseId){
+        try{
+            CourseDetail cd = courseDetailService.getCourseDetailById(courseId);
+            return ResponseEntity.ok().body(cd);
+        }catch(Exception e){
+            return ResponseEntity.noContent().build();
+        }
     }
 }

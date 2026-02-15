@@ -1,7 +1,13 @@
 package com.example.lmsWebsite.controller;
+import com.example.lmsWebsite.dto.UserEnrolledCourseResponse;
 import com.example.lmsWebsite.model.Enroll;
 import com.example.lmsWebsite.service.EnrollService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
@@ -10,31 +16,46 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:5173/")
 public class EnrollController {
 
+    private static Logger logger =  LoggerFactory.getLogger(EnrollController.class);
+
     @Autowired
     EnrollService enrollService;
 
     @PostMapping("/enrollCourse")
-    public void enrollToCourse(@RequestBody Enroll enroll){
-        System.out.println("method is called from here");
-        try{
-            System.out.println(enroll.getEmail()+"-"+ enroll.getCardNo()+"-"+enroll.getExpiryDate());
-            enrollService.enrollToCourse(enroll);
-        }catch(Exception e){
-            System.out.println("error in enroll to course");
+    public ResponseEntity<?> enrollToCourse(@RequestBody Enroll enroll) {
+        boolean success = enrollService.enrollToCourse(enroll);
+
+        if (!success) {
+            // This is what the React toast will catch
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(Map.of("body", "You are already enrolled!"));
         }
+
+        return ResponseEntity.ok(Map.of("body", "Successfully enrolled and email sent!"));
     }
+
+    @GetMapping("/is-enrolled")
+    public boolean check(@RequestParam int courseId, @RequestParam String email) {
+        return enrollService.isEnrolled(courseId, email);
+    }
+
     @GetMapping("/getAllCourses/{userId}")
-    public List<String> getEnrolledCoursesById(@PathVariable String userId){
+    public ResponseEntity<?> getEnrolledCoursesById(@PathVariable String userId){
         try{
-            return enrollService.getEnrolledCoursesById(userId);
+            List<Integer> courseIds= enrollService.getEnrolledCoursesById(userId);
+            UserEnrolledCourseResponse userCourses = new UserEnrolledCourseResponse(userId,courseIds);
+            return ResponseEntity.ok().body(userCourses);
         }catch(Exception e){
-            System.out.println("something went wrong in fetching id");
+            logger.error("could not get all courses of a user");
+            logger.error(e.getMessage());
+            return ResponseEntity.noContent().build();
         }
-        return null;
     }
 
     @GetMapping("/enrolled-to")
     public List<Map<String,Object>> getEnrolledUserCourse(){
         return enrollService.getEnrolledUserCourse();
     }
+
+
 }

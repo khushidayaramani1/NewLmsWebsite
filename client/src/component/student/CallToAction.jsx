@@ -3,7 +3,7 @@ import React from 'react'
 const CallToAction = () => {
   return (
     <>
-      <div className="!my-20 flex flex-col text-center justify-center items-center space-y-7!"> 
+      <div className="my-20! flex flex-col text-center justify-center items-center space-y-7!">
         <div className="font-semibold text-3xl">Learn anything, anytime, anywhere</div>
         <div className="text-gray-600 text-center" >Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur commodo do ea.</div>
         <div className="flex gap-10" >

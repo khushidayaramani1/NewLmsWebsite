@@ -12,11 +12,8 @@ drop table studentPaymentDetail;
 desc users;
 select * from enroll;
 alter table enroll drop column card_number;
-
 delete  from enroll where enroll_id=1 or enroll_id=2 or enroll_id=3;
-
 select course_id from enroll where user_id='user_38KaAKjXMxQpz804bP6L8bgWqry';
-
 select * from enroll;
 
 select user_id,course_id from enroll;
@@ -46,10 +43,41 @@ truncate users;
 select * from courses;
 update users set isEducator = false where clerk_id='user_38KaAKjXMxQpz804bP6L8bgWqry';
 
+select * from course_detail;
+desc course_detail;
 
 
+select * from course_description;
 
+alter table course_detail modify educator_id varchar(255) ;
+truncate course_detail;
 
+select * from course_detail;
+select * from chapter;
 
+select thumbnail_data from course_detail;
 
+select course_id from course_detail;
 
+select course_id,course_description,course_price,course_title,course_headings from course_detail;
+
+			
+-- courseId  //
+-- courseTitle //
+-- coursePrice //
+-- isPublished
+-- discount	
+-- educatorId //
+-- coursethumbnail //
+
+select * from chapter;
+desc chapter;
+insert into chapter values(1,'test',1);
+
+select * from enroll;
+select * from course_detail;
+
+delete  from enroll where enroll_id=20 OR enroll_id=19 OR enroll_id=18 OR enroll_id=17 OR enroll_id=16 OR enroll_id=15;
+truncate enroll
+ 
+select course_id from enroll where user_id='user_37zQf8O6HsPTDshjnZWgXd3WVjb';

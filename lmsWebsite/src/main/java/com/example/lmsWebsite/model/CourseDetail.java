@@ -5,6 +5,8 @@ import com.example.lmsWebsite.BaseEntity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class CourseDetail extends BaseEntity {
@@ -21,6 +23,12 @@ public class CourseDetail extends BaseEntity {
     private String thumbnailType;
     @Lob
     private byte[] thumbnailData;
+    @OneToMany(mappedBy = "courseDetail",cascade = CascadeType.ALL)
+    private List<Chapter> chapters= new ArrayList<>();
+    public void addChapter(Chapter chapter) {
+        chapters.add(chapter);
+        chapter.setCourseDetail(this); // This is the crucial link! 🔗
+    }
 
     public String getCourseTitle() {
         return courseTitle;
@@ -89,5 +97,13 @@ public class CourseDetail extends BaseEntity {
 
     public void setCourseId(int courseId) {
         this.courseId = courseId;
+    }
+
+    public List<Chapter> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(List<Chapter> chapters) {
+        this.chapters = chapters;
     }
 }

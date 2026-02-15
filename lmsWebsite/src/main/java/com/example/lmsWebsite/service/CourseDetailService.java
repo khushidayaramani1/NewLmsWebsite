@@ -1,6 +1,8 @@
 package com.example.lmsWebsite.service;
 
+import com.example.lmsWebsite.model.Chapter;
 import com.example.lmsWebsite.model.CourseDetail;
+import com.example.lmsWebsite.model.Lecture;
 import com.example.lmsWebsite.repository.CourseDetailRepo;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,16 @@ public class CourseDetailService {
         cd.setThumbnailName(imageFile.getOriginalFilename());
         cd.setThumbnailType(imageFile.getContentType());
         cd.setThumbnailData(imageFile.getBytes());
+        if(cd.getChapters()!=null) {
+            for (Chapter ch : cd.getChapters()) {
+                ch.setCourseDetail(cd);
+                if(ch.getLectures()!=null){
+                    for (Lecture lec : ch.getLectures()) {
+                        lec.setChapter(ch);
+                    }
+                }
+            }
+        }
         return courseDetailRepo.save(cd);
     }
 

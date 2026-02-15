@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useUser } from '@clerk/clerk-react'
 import { useParams, Navigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 const EnrollToCourse = () => {
   const { user, isSignedIn, isLoaded } = useUser()
@@ -47,25 +48,28 @@ const EnrollToCourse = () => {
 
   /* ENROLL HANDLER */
   const handleEnroll = async () => {
-    try {
-      const res = await fetch('http://localhost:8087/enrollCourse', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(paymentData),
-      })
-
-      if (res.ok) {
-        setIsEnrolled(true)
-      } else {
-        alert("Enrollment failed")
-      }
-    } catch (err) {
-      console.error(err)
-      alert("Server error")
+  try {
+    const res = await fetch('http://localhost:8087/enrollCourse', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(paymentData),
+    });
+    // Check if response is OK (status 200–299)
+    if (!res.ok) {
+      alert("already enrolled")
     }
+    else{
+      toast.success("Enrollment successful!");
+      setIsEnrolled(true);
+    }
+    const backendResponse = await res.json();
+    console.log("Backend response:", backendResponse);
+  }catch (err) {
+    console.error("Enrollment failed:", err.body);
   }
+
 
   /* SUCCESS SCREEN */
   if (isEnrolled) {
@@ -87,6 +91,9 @@ const EnrollToCourse = () => {
       </div>
     )
   }
+
+};
+
 
   /* MAIN UI */
   return (

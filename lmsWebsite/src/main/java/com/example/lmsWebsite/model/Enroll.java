@@ -1,17 +1,18 @@
 package com.example.lmsWebsite.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "enroll", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"email", "course_id"})
+})
 public class Enroll {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int enrollId;
     private String userId;
-    private String courseId;
+    @Column(name = "course_id")
+    private int courseId;
     private String email;
     private String cardNo;
     private String expiryDate;
@@ -33,11 +34,11 @@ public class Enroll {
         this.userId = userId;
     }
 
-    public String getCourseId() {
+    public int getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(int courseId) {
         this.courseId = courseId;
     }
 
