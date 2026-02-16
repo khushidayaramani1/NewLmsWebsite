@@ -595,6 +595,7 @@ export const dummyCourses = [
         "__v": 1,
         "courseThumbnail": "https://img.youtube.com/vi/0yboGn8errU/maxresdefault.jpg"
     },
+    //yaha se table me dalna baki hai
     {
         "id": "605c72efb3f1c2b1f8e4e1ad",
         "courseTitle": "Data Science with Python",

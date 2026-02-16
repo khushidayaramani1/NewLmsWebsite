@@ -60,8 +60,6 @@ select thumbnail_data from course_detail;
 select course_id from course_detail;
 
 select course_id,course_description,course_price,course_title,course_headings from course_detail;
-
-			
 -- courseId  //
 -- courseTitle //
 -- coursePrice //
@@ -69,15 +67,26 @@ select course_id,course_description,course_price,course_title,course_headings fr
 -- discount	
 -- educatorId //
 -- coursethumbnail //
-
 select * from chapter;
 desc chapter;
 insert into chapter values(1,'test',1);
-
 select * from enroll;
 select * from course_detail;
-
 delete  from enroll where enroll_id=20 OR enroll_id=19 OR enroll_id=18 OR enroll_id=17 OR enroll_id=16 OR enroll_id=15;
-truncate enroll
- 
+truncate enroll;
 select course_id from enroll where user_id='user_37zQf8O6HsPTDshjnZWgXd3WVjb';
+select count(enroll_id) from enroll where course_id = 8 AND email ='khushitemp559@gmail.com';
+truncate chapter;
+select * from chapter;
+truncate lecture;
+delete from course_detail where course_id = 4 OR course_id = 5 OR course_id = 6 OR course_id = 7 OR course_id = 8 OR course_id = 9 OR course_id = 10 OR e_id = 11 OR course_id = 12 ;
+truncate course_detail;
+select * from enroll;
+truncate enroll;
+delete from chapter where chapter_id = 1 OR chapter_id = 2 OR chapter_id = 3;
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM course_detail;
+SET SQL_SAFE_UPDATES = 1;
+
+select * from course_detail;
+select * from chapter;

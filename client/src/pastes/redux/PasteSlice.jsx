@@ -1,24 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = [];
+
 export const PasteSlice = createSlice({
-    name:"pastes",
+    name: "pastes",
     initialState,
-    reducers:{
-        updateToPastes:(state,action)=>{
-
+    reducers: {
+        updateToPastes: (state, action) => {
+            return action.payload;
         },
-        createToPastes:(state,action)=>{
-
+        createToPastes: (state, action) => {
+            state.push(action.payload);
         },
-        resetAllPastes:(state,action)=>{
-
+        resetAllPastes: () => {
+            return [];
         },
-        removeFromPastes:(state,action)=>{
+        removeFromPastes: (state, action) => {
+            return state.filter((_, idx) => idx !== action.payload);
+        },
+    },
+});
 
-        }
-    }
-})
-
-export const {updateToPastes,resetAllPastes,removeFromPastes} = PasteSlice.actions;
+export const { updateToPastes, createToPastes, resetAllPastes, removeFromPastes } = PasteSlice.actions;
 
 export default PasteSlice.reducer;

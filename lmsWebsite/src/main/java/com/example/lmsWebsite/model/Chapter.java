@@ -1,5 +1,6 @@
 package com.example.lmsWebsite.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -11,11 +12,11 @@ public class Chapter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int chapterId;
-
     private String chapterTilte;
     private int chapterOrder;
 
     @OneToMany(mappedBy = "chapter" , cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Lecture> lectures = new ArrayList<>();
 
     @ManyToOne

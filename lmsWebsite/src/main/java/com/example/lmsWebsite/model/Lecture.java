@@ -1,5 +1,6 @@
 package com.example.lmsWebsite.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +14,7 @@ public class Lecture {
     private String lectureUrl;
     @ManyToOne
     @JoinColumn(name="chapterId", nullable = false)
+    @JsonBackReference
     Chapter chapter;
 
     public int getLectureId() {

@@ -1,15 +1,15 @@
-import React from 'react' 
-import { useState,useEffect } from 'react'
+import React from 'react';
+import { useState,useEffect } from 'react';
 import './index.css';
 import { Routes,Route, useMatch } from 'react-router-dom';
-import Home from './pages/student/Home.jsx'
-import CourseList from './pages/student/CourseList.jsx'
-import CourseDetail from './pages/student/CourseDetail.jsx'
-import MyEnrollement from './pages/student/MyEnrollement.jsx'
-import Player from './pages/student/Player.jsx'
-import Loading from './component/student/Loading.jsx'
-import Educator from './pages/educator/Educator.jsx'
-import Dashboard from './pages/educator/Dashboard.jsx'
+import Home from './pages/student/Home.jsx';
+import CourseList from './pages/student/CourseList.jsx';
+import CourseDetail from './pages/student/CourseDetail.jsx';
+import MyEnrollement from './pages/student/MyEnrollement.jsx';
+import Player from './pages/student/Player.jsx';
+import Loading from './component/student/Loading.jsx';
+import Educator from './pages/educator/Educator.jsx';
+import Dashboard from './pages/educator/Dashboard.jsx';
 import AddCourse from './pages/educator/AddCourse.jsx';
 import Mycourses from './pages/educator/Mycourses.jsx';
 import StudentEnrolled from './pages/educator/StudentEnrolled.jsx';
@@ -23,8 +23,6 @@ import { Toaster } from 'react-hot-toast';
 
 function App() {
   let isEducatorRoute = useMatch('/educator-dashboard/*')
- 
-
     return(
       <>
         {!isEducatorRoute && <Navbar  />}
