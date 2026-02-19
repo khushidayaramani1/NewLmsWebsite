@@ -25,16 +25,24 @@ const Chat = () => {
     
     // 2. Start Loading & Fetch
     setIsLoading(true);
+    const abortController = new AbortController();
+    const timeoutId = setTimeout(() => abortController.abort(), 30000); // 30s timeout
+
     try {
-      const response = await fetch(`http://localhost:8087/chat?question=${currentQuery}`);
+      const response = await fetch(`http://localhost:8087/chat?question=${encodeURIComponent(currentQuery)}`, {
+        signal: abortController.signal
+      });
       const data = await response.json();
       
       // 3. Add Bot Message (Assuming your Spring Boot Map returns { "answer": "..." })
       setMessageList(prev => [...prev, { sender: "bot", text: data.answer || "No response received." }]);
     } catch (error) {
-      console.error("Error fetching bot reply:", error);
-      setMessageList(prev => [...prev, { sender: "bot", text: "Sorry, I'm having trouble connecting to the server." }]);
+      if (error.name !== 'AbortError') {
+        console.error("Error fetching bot reply:", error);
+        setMessageList(prev => [...prev, { sender: "bot", text: "Sorry, I'm having trouble connecting to the server." }]);
+      }
     } finally {
+      clearTimeout(timeoutId);
       setIsLoading(false);
     }
   };

@@ -7,30 +7,25 @@ import { dummyTestimonial as dummyTestimonials } from "../../assets/assets/asset
 
 const TestimonialSection = () => {
   return (
-    <>
-        <div className="my-10 sm:my-20 flex flex-col justify-center items-center space-y-8 sm:space-y-12 px-2 sm:px-4"> 
-            <div className="flex flex-col justify-center items-center w-full max-w-2xl space-y-5 sm:space-y-7">
-                <div className="font-semibold text-2xl sm:text-3xl">Testimonials</div>
-                <div className="text-gray-600 text-center text-base sm:text-lg">Hear from our learners as they share their journeys of transformation, success, and how our
-                    platform has made a difference in their lives.
-                </div>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full justify-center items-center">
-            {
-                dummyTestimonials.map((elem, idx) => (
-                    <TestimonialCard
-                        key={elem.name || idx}
-                        image={elem.image}
-                        name={elem.name}
-                        role={elem.role}
-                        rating={elem.rating}
-                        text={elem.feedback}
-                    />
-                ))
-            }
-            </div>
-        </div>
-    </>
+    <div className="my-12 sm:my-16 md:my-20 flex flex-col justify-center items-center space-y-8 sm:space-y-10 md:space-y-12 px-4 sm:px-6 md:px-8"> 
+      <div className="flex flex-col justify-center items-center w-full max-w-3xl space-y-4 sm:space-y-6">
+        <h2 className="font-bold text-2xl sm:text-3xl md:text-4xl text-gray-800">Testimonials</h2>
+        <p className="text-gray-600 text-center text-sm sm:text-base md:text-lg leading-relaxed">Hear from our learners as they share their journeys of transformation, success, and how our platform has made a difference in their lives.
+        </p>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 w-full max-w-6xl mx-auto">
+        {dummyTestimonials.map((elem, idx) => (
+          <TestimonialCard
+            key={elem.name || idx}
+            image={elem.image}
+            name={elem.name}
+            role={elem.role}
+            rating={elem.rating}
+            text={elem.feedback}
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 

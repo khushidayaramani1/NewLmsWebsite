@@ -4,7 +4,6 @@ import home_icon from '../../assets/assets/home_icon.svg'
 import add_icon from '../../assets/assets/add_icon.svg'
 import my_course_icon from '../../assets/assets/my_course_icon.svg'
 import person_tick_icon from '../../assets/assets/person_tick_icon.svg'
-import { Outlet } from 'react-router-dom'
 
 const SideBar = () => {
   const menuItems = [
@@ -14,19 +13,20 @@ const SideBar = () => {
   ]
 
   return (
-    <>
-      <div className="w-64 h-screen  flex flex-col text-gray-700  px-10! justify-start  border-l-gray-600 p-4">
+    <nav className="w-full bg-white border-b border-slate-200 shadow-sm sticky top-0 z-10">
+      <div className="flex items-center justify-start px-4 sm:px-6 md:px-8 py-3 sm:py-4 gap-2 sm:gap-4 md:gap-8 overflow-x-auto scrollbar-hide">
         {menuItems.map((item, index) => (
-          <Link key={index} to={item.path} className="flex items-center gap-3 mb-4! text-lg">
-            <img src={item.icon} alt={item.name} className="w-5 h-5" />
-            <span>{item.name}</span>
+          <Link 
+            key={index} 
+            to={item.path} 
+            className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors whitespace-nowrap font-medium text-xs sm:text-sm md:text-base active:bg-blue-100"
+          >
+            <img src={item.icon} alt={item.name} className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="hidden sm:inline">{item.name}</span>
           </Link>
         ))}
       </div>
-      <div>
-
-      </div>
-    </>
+    </nav>
   )
 }
 

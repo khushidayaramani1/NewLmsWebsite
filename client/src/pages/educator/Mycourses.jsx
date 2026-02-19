@@ -1,35 +1,31 @@
 import React from 'react'
 import {EducatorsCourses as courses} from "../../assets/assets/assets.js";
 const Mycourses = () => {
-
-  
-
-
   return (
-    <div className='w-full px-2 sm:px-4 md:px-8 lg:px-24 pt-6 sm:pt-10 flex flex-col space-y-6 sm:space-y-10'>
-      <div className='font-semibold mb-2 sm:mb-4 text-xl sm:text-2xl'>My Enrollments</div>
-      <div className="overflow-x-auto rounded-lg shadow">
-        <table className='min-w-[600px] w-full text-left text-base sm:text-lg bg-white'>
-          <thead className="border-b border-gray-500 bg-gray-50">
+    <div className='w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pt-6 sm:pt-10 flex flex-col space-y-6 sm:space-y-8'>
+      <div className='font-semibold mb-2 sm:mb-4 text-lg sm:text-xl md:text-2xl'>My Courses</div>
+      <div className="overflow-x-auto rounded-lg shadow-md border border-gray-100">
+        <table className='min-w-full w-full text-left bg-white'>
+          <thead className="border-b border-gray-200 bg-gray-50">
             <tr>
-              <th className="pb-2 px-2 sm:px-6">My Courses</th>
-              <th className="pb-2 px-2 sm:px-6">Earnings</th>
-              <th className="pb-2 px-2 sm:px-6">Student</th>
-              <th className="pb-2 px-2 sm:px-6">Published On</th>
+              <th className="py-3 px-4 sm:px-6 font-bold text-gray-700 text-xs sm:text-sm md:text-base">Courses</th>
+              <th className="py-3 px-4 sm:px-6 text-center font-bold text-gray-700 text-xs sm:text-sm md:text-base">Earnings</th>
+              <th className="py-3 px-4 sm:px-6 text-center font-bold text-gray-700 text-xs sm:text-sm md:text-base">Students</th>
+              <th className="py-3 px-4 sm:px-6 text-center font-bold text-gray-700 text-xs sm:text-sm md:text-base hidden sm:table-cell">Published</th>
             </tr>
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {courses.map((elem, index) => (
-              <tr key={index}>
-                <td className='py-3 px-2 sm:px-6'>
-                  <div className='flex flex-col sm:flex-row items-center gap-2 sm:gap-5'>
-                    <img className='w-20 h-12 sm:w-24 sm:h-14 object-cover rounded' src={elem.thumbnail} alt="" />
-                    <p className='text-base sm:text-lg text-center sm:text-left'>{elem.title}</p>
+              <tr key={index} className='hover:bg-gray-50 transition-colors'>
+                <td className='py-4 px-4 sm:px-6'>
+                  <div className='flex flex-col sm:flex-row items-center gap-2 sm:gap-3'>
+                    <img className='w-14 h-8 sm:w-20 sm:h-12 md:w-28 md:h-16 object-cover rounded' src={elem.thumbnail} alt="" />
+                    <p className='text-xs sm:text-sm md:text-base font-medium text-center sm:text-left line-clamp-2'>{elem.title}</p>
                   </div>
                 </td>
-                <td className='py-3 px-2 sm:px-6 text-base sm:text-lg text-center'>{elem.earnings}</td>
-                <td className='py-3 px-2 sm:px-6 text-base sm:text-lg text-center'>{elem.students}</td>
-                <td className='py-3 px-2 sm:px-6 text-base sm:text-lg text-center'>{elem.publishedOn}</td>
+                <td className='py-4 px-4 sm:px-6 text-xs sm:text-sm md:text-base text-center font-semibold text-blue-600'>{elem.earnings}</td>
+                <td className='py-4 px-4 sm:px-6 text-xs sm:text-sm md:text-base text-center'>{elem.students}</td>
+                <td className='py-4 px-4 sm:px-6 text-xs sm:text-sm md:text-base text-center hidden sm:table-cell text-gray-600'>{elem.publishedOn}</td>
               </tr>
             ))}
           </tbody>

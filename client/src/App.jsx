@@ -22,7 +22,7 @@ import Chat from './chatbot/Chat.jsx';
 import { Toaster } from 'react-hot-toast';
 
 function App() {
-  let isEducatorRoute = useMatch('/educator-dashboard/*')
+  let isEducatorRoute = useMatch('/educator/*')
     return(
       <>
         {!isEducatorRoute && <Navbar  />}

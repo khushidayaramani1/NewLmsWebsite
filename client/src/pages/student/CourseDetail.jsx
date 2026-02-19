@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import CourseDropdown from "../../component/student/CourseDropdown.jsx";
+import CourseCurriculum from "../../component/student/CourseCurriculum.jsx";
 import toast from "react-hot-toast";
 import { useUser } from "@clerk/clerk-react";
 
@@ -88,7 +89,10 @@ const CourseDetail = () => {
         </div>
         <div className="w-full">
           <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-5">Course Structure</h2>
-          <CourseDropdown courseContent={myCourse.course_content ? JSON.parse(myCourse.course_content) : []} />
+          {/* <CourseDropdown courseContent={myCourse.course_content ? JSON.parse(myCourse.course_content) : []} /> */}
+        </div>
+        <div className="w-full border rounded-lg bg-white overflow-hidden shadow-sm">
+          <CourseCurriculum courseId={courseId} />
         </div>
       </div>
 

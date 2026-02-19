@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import { useUser } from '@clerk/clerk-react'
-import { useParams, Navigate } from 'react-router-dom'
-import toast from 'react-hot-toast'
+import React, { useState, useEffect } from 'react';
+import { useUser } from '@clerk/clerk-react';
+import { useParams, Navigate, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { CreditCard, BookOpen, CheckCircle, Lock } from 'lucide-react'; // Optional: Install lucide-react
 
 const EnrollToCourse = () => {
-  const { user, isSignedIn, isLoaded } = useUser()
-  const { courseId } = useParams()
+  const { user, isSignedIn, isLoaded } = useUser();
+  const { courseId } = useParams();
+  const navigate = useNavigate();
 
-  const [isEnrolled, setIsEnrolled] = useState(false)
-
+  const [isEnrolled, setIsEnrolled] = useState(false);
+  const [chapters, setChapters] = useState([]);
+  const [loadingChapters, setLoadingChapters] = useState(true);
+  
   const [paymentData, setPaymentData] = useState({
     userId: "",
     courseId: courseId,
@@ -16,136 +20,203 @@ const EnrollToCourse = () => {
     cardNo: "",
     expiryDate: "",
     cvc: "",
-  })
+  });
 
-  /* ✅ WAIT FOR CLERK TO LOAD USER */
+  // Fetch Chapters & Set User Data
   useEffect(() => {
     if (isLoaded && isSignedIn && user) {
       setPaymentData(prev => ({
         ...prev,
         userId: user.id,
         email: user.primaryEmailAddress?.emailAddress || "",
-      }))
+      }));
     }
-  }, [isLoaded, isSignedIn, user])
 
-  /* 🔐 AUTH GUARDS */
-  if (!isLoaded) {
-    return <div className="min-h-screen flex items-center justify-center p-4 text-lg">Loading...</div>;
-  }
+    const fetchChapters = async () => {
+      try {
+        const res = await fetch(`http://localhost:8087/get-chapters/${courseId}`);
+        const data = await res.json();
+        // Sort by chapter_order ascending
+        const sorted = data.sort((a, b) => a.chapter_order - b.chapter_order);
+        setChapters(sorted);
+      } catch (err) {
+        console.error("Failed to fetch chapters", err);
+      } finally {
+        setLoadingChapters(false);
+      }
+    };
 
-  if (!isSignedIn) {
-    return <Navigate to="/sign-up" />
-  }
+    fetchChapters();
+  }, [isLoaded, isSignedIn, user, courseId]);
 
-  /* INPUT HANDLER */
+  if (!isLoaded) return <div className="min-h-screen flex items-center justify-center animate-pulse text-gray-500">Loading Secure Checkout...</div>;
+  if (!isSignedIn) return <Navigate to="/sign-up" />;
+
   const handleChange = (e) => {
-    setPaymentData({
-      ...paymentData,
-      [e.target.name]: e.target.value,
-    })
-  }
+    setPaymentData({ ...paymentData, [e.target.name]: e.target.value });
+  };
 
-  /* ENROLL HANDLER */
   const handleEnroll = async () => {
-  try {
-    const res = await fetch('http://localhost:8087/enrollCourse', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(paymentData),
-    });
-    // Check if response is OK (status 200–299)
-    if (!res.ok) {
-      alert("already enrolled")
-    }
-    else{
-      toast.success("Enrollment successful!");
-      setIsEnrolled(true);
-    }
-    const backendResponse = await res.json();
-    console.log("Backend response:", backendResponse);
-  }catch (err) {
-    console.error("Enrollment failed:", err.body);
-  }
+    try {
+      const res = await fetch('http://localhost:8087/enrollCourse', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(paymentData),
+      });
 
+      if (!res.ok) {
+        toast.error("You are already enrolled in this course");
+      } else {
+        toast.success("Enrollment successful!");
+        setIsEnrolled(true);
+      }
+    } catch (err) {
+      toast.error("Connection error. Please try again.");
+    }
+  };
 
-  /* SUCCESS SCREEN */
   if (isEnrolled) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-        <div className="text-center bg-white p-6 sm:p-10 rounded-xl shadow-lg border w-full max-w-md">
-          <div className="text-5xl sm:text-6xl mb-4 text-green-500">✅</div>
-          <h2 className="text-xl sm:text-2xl font-bold mb-2">Enrollment Successful!</h2>
-          <p className="text-gray-600 mb-6 text-base sm:text-lg">
-            Welcome to the course. You can now start learning.
-          </p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
+        <div className="text-center bg-white p-10 rounded-2xl shadow-xl border border-green-100 max-w-md w-full transition-all">
+          <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle size={48} />
+          </div>
+          <h2 className="text-3xl font-extrabold text-gray-900 mb-3">You're In!</h2>
+          <p className="text-gray-600 mb-8">Success! Your enrollment is confirmed. Start your journey into cybersecurity today.</p>
           <button
-            className="bg-blue-600 text-white px-4 sm:px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 text-base sm:text-lg"
-            onClick={() => window.location.href = '/my-enrollement'}
+            className="w-full bg-indigo-600 text-white py-3 rounded-xl font-bold hover:bg-indigo-700 shadow-lg transition-all"
+            onClick={() => navigate('/my-enrollement')}
           >
-            Go to My Courses
+            Go to My Learning Dashboard
           </button>
         </div>
       </div>
     );
   }
 
-};
-
-
-  /* MAIN UI */
   return (
-    <div className="bg-gray-50 min-h-screen p-2 sm:p-4 md:p-8 lg:p-10">
-      <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 max-w-5xl mx-auto">
-        {/* LEFT - PAYMENT FORM */}
-        <div className="w-full lg:w-1/2 bg-white p-4 sm:p-6 rounded-lg shadow border mb-6 lg:mb-0">
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Checkout</h2>
-          <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-blue-50 rounded text-sm sm:text-base">
-            Enrolling as: <strong>{paymentData.email}</strong>
-          </div>
-          <div className="space-y-3 sm:space-y-4">
-            <input
-              name="cardNo"
-              onChange={handleChange}
-              placeholder="Card Number"
-              className="w-full p-2 sm:p-3 border rounded"
-            />
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <input
-                name="expiryDate"
-                onChange={handleChange}
-                placeholder="MM/YY"
-                className="w-full sm:w-1/2 p-2 sm:p-3 border rounded"
-              />
-              <input
-                name="cvc"
-                onChange={handleChange}
-                placeholder="CVC"
-                className="w-full sm:w-1/2 p-2 sm:p-3 border rounded"
-              />
+    <div className="bg-[#f8fafc] min-h-screen pb-20">
+      {/* Header */}
+      <div className="bg-white border-b py-6 mb-8">
+        <div className="max-w-6xl mx-auto px-4 flex items-center gap-2 text-gray-500 text-sm">
+          <span>Courses</span> <span>/</span> <span className="text-indigo-600 font-medium">Checkout</span>
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        {/* LEFT COLUMN: PAYMENT */}
+        <div className="lg:col-span-2 space-y-6">
+          <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-200">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="bg-indigo-100 p-2 rounded-lg text-indigo-600">
+                <CreditCard size={24} />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-800">Payment Details</h2>
             </div>
-            <button
-              onClick={handleEnroll}
-              className="w-full bg-blue-600 text-white py-2 sm:py-3 rounded font-bold hover:bg-blue-700 text-base sm:text-lg"
-            >
-              Complete Enrollment
-            </button>
+
+            <div className="mb-8 p-4 bg-indigo-50 rounded-xl border border-indigo-100 flex items-center justify-between">
+              <div>
+                <p className="text-xs text-indigo-600 font-semibold uppercase tracking-wider">Account</p>
+                <p className="text-gray-700 font-medium">{paymentData.email}</p>
+              </div>
+              <Lock size={18} className="text-indigo-400" />
+            </div>
+
+            <div className="space-y-5">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
+                <input
+                  name="cardNo"
+                  onChange={handleChange}
+                  placeholder="0000 0000 0000 0000"
+                  className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                />
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
+                  <input
+                    name="expiryDate"
+                    onChange={handleChange}
+                    placeholder="MM/YY"
+                    className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">CVC</label>
+                  <input
+                    name="cvc"
+                    onChange={handleChange}
+                    placeholder="123"
+                    className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                  />
+                </div>
+              </div>
+
+              <button
+                onClick={handleEnroll}
+                className="w-full bg-gray-900 text-white py-4 rounded-xl font-bold hover:bg-black transition-all mt-4 shadow-lg flex items-center justify-center gap-2"
+              >
+                Complete Enrollment — $39.99
+              </button>
+              <p className="text-center text-xs text-gray-400 mt-4 italic">
+                Secure 256-bit SSL Encrypted Payment
+              </p>
+            </div>
           </div>
         </div>
-        {/* RIGHT - SUMMARY */}
-        <div className="w-full lg:w-1/3 bg-white p-4 sm:p-6 rounded-lg shadow border h-fit">
-          <h3 className="text-base sm:text-lg font-bold mb-3 sm:mb-4">Order Summary</h3>
-          <p className="text-xs sm:text-sm text-gray-600">Course ID: {courseId}</p>
-          <div className="mt-3 sm:mt-4 border-t pt-3 sm:pt-4 flex justify-between font-bold text-base sm:text-lg">
-            <span>Total</span>
-            <span>$39.99</span>
+
+        {/* RIGHT COLUMN: SUMMARY & CURRICULUM */}
+        <div className="space-y-6">
+          {/* Order Summary */}
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 h-fit">
+            <h3 className="text-lg font-bold text-gray-800 mb-4">Order Summary</h3>
+            <div className="space-y-3">
+              <div className="flex justify-between text-gray-600">
+                <span>Course ID</span>
+                <span className="font-mono">{courseId}</span>
+              </div>
+              <div className="flex justify-between text-gray-600">
+                <span>Service Fee</span>
+                <span>$0.00</span>
+              </div>
+              <div className="pt-4 border-t flex justify-between items-center">
+                <span className="font-bold text-gray-800 text-xl">Total</span>
+                <span className="font-extrabold text-indigo-600 text-2xl">$39.99</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Curriculum Preview */}
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+            <div className="flex items-center gap-2 mb-4">
+              <BookOpen size={20} className="text-indigo-500" />
+              <h3 className="font-bold text-gray-800">Course Curriculum</h3>
+            </div>
+            
+            <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+              {loadingChapters ? (
+                <p className="text-gray-400 text-sm">Loading curriculum...</p>
+              ) : chapters.map((chapter) => (
+                <div key={chapter.chapter_id} className="group border-l-2 border-gray-100 pl-4 py-1 hover:border-indigo-500 transition-colors">
+                  <p className="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">
+                    Chapter {chapter.chapter_order}
+                  </p>
+                  <h4 className="text-sm font-semibold text-gray-700 group-hover:text-indigo-600 transition-colors">
+                    {chapter.chapter_tilte}
+                  </h4>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+
       </div>
     </div>
   );
-}
+};
 
-export default EnrollToCourse
+export default EnrollToCourse;

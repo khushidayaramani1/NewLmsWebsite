@@ -15,28 +15,28 @@ const Mycourses = () => {
 
   return (
 
-    <div className='w-full px-2 sm:px-4 md:px-8 lg:px-24 pt-6 sm:pt-10 flex flex-col space-y-6 sm:space-y-10'>
-      <div className='font-semibold mb-2 sm:mb-4 text-xl sm:text-2xl'>My Enrollments</div>
-      <div className="overflow-x-auto rounded-lg shadow">
-        <table className='min-w-[600px] w-full text-left text-base sm:text-lg bg-white'>
-          <thead className="border-b border-gray-500 bg-gray-50">
+    <div className='w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pt-6 sm:pt-10 flex flex-col space-y-6 sm:space-y-8'>
+      <div className='font-semibold mb-2 sm:mb-4 text-lg sm:text-xl md:text-2xl'>Student Enrollments</div>
+      <div className="overflow-x-auto rounded-lg shadow-md border border-gray-100">
+        <table className='min-w-full w-full text-left bg-white'>
+          <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
-              <th className="pb-2 px-2 sm:px-6">Student Name</th>
-              <th className="pb-2 px-2 sm:px-6">Course Title</th>
-              <th className="pb-2 px-2 sm:px-6">Date</th>
+              <th className="py-3 px-4 sm:px-6 font-bold text-gray-700 text-xs sm:text-sm md:text-base">Student Name</th>
+              <th className="py-3 px-4 sm:px-6 font-bold text-gray-700 text-xs sm:text-sm md:text-base text-center">Course Title</th>
+              <th className="py-3 px-4 sm:px-6 font-bold text-gray-700 text-xs sm:text-sm md:text-base text-center">Enrollment Date</th>
             </tr>
           </thead>
           <tbody className='divide-y divide-gray-200'>
             {data.map((elem, index) => (
-              <tr key={index}>
-                <td className='py-3 px-2 sm:px-6'>
-                  <div className='flex flex-col sm:flex-row items-center gap-2 sm:gap-5'>
-                    <img className='w-20 h-12 sm:w-24 sm:h-14 object-cover rounded' src={user.imageUrl}  alt="here will be image" />
-                    <p className='text-base sm:text-lg text-center sm:text-left'>{elem.user_name}</p>
+              <tr key={index} className='hover:bg-gray-50 transition-colors'>
+                <td className='py-4 px-4 sm:px-6'>
+                  <div className='flex flex-col sm:flex-row items-center gap-3 sm:gap-4'>
+                    <img className='w-16 h-10 sm:w-20 sm:h-12 object-cover rounded' src={user?.imageUrl}  alt="profile" />
+                    <p className='text-xs sm:text-sm md:text-base font-medium text-center sm:text-left'>{elem.user_name}</p>
                   </div>
                 </td>
-                <td className='py-3 px-2 sm:px-6 text-base sm:text-lg text-center'>{elem.course_title}</td>
-                <td className='py-3 px-2 sm:px-6 text-base sm:text-lg text-center'>date</td>
+                <td className='py-4 px-4 sm:px-6 text-xs sm:text-sm md:text-base text-center'>{elem.course_title}</td>
+                <td className='py-4 px-4 sm:px-6 text-xs sm:text-sm md:text-base text-center text-gray-600'>-</td>
               </tr>
             ))}
           </tbody>

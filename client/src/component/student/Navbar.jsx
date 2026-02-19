@@ -41,20 +41,20 @@ const Navbar = () => {
 
 
   return (
-    <div className={`border border-b-gray-400 px-10   flex justify-between items-center h-16 ${isCourseList ? 'bg-white' : 'bg-cyan-100/70'}`}>
-      <img onClick={()=>navigate("/")} src={logo} alt="logo" className='w-28 lg:w-32 cursor-pointer' />
+    <div className={`border-b px-4 sm:px-6 md:px-10 flex justify-between items-center h-14 sm:h-16 ${isCourseList ? 'bg-white' : 'bg-cyan-100/70'}`}>
+      <img onClick={()=>navigate("/")} src={logo} alt="logo" className='w-20 sm:w-24 md:w-28 lg:w-32 cursor-pointer hover:opacity-80 transition-opacity' />
       { !user && <>
-        <button onClick={()=>openSignIn()} className="hidden lg:flex rounded-full text-white hover:bg-blue-700  bg-blue-600 px-5 py-2 cursor-pointer">Create Account</button>
-        <FaUser onClick={()=>openSignIn()} className="lg:hidden " /></>
+        <button onClick={()=>openSignIn()} className="hidden md:flex rounded-full text-white hover:bg-blue-700 bg-blue-600 px-4 sm:px-5 py-2 cursor-pointer text-sm font-medium transition-colors">Create Account</button>
+        <FaUser onClick={()=>openSignIn()} className="md:hidden text-gray-600 cursor-pointer hover:text-blue-600" size={18} /></>
       }
-      {user && !isEducator &&(<div className=' text-gray-600 flex flex-row items-center'>
-        <Link to="/educator" onClick={handleEducator} className='hidden md:flex mx-1! hover:text-gray-700'>Become Educator</Link>
-        <p className='md:flex mx-1! hidden'>|</p>
-        <Link to="/my-enrollement" className='md:flex hidden mx-1! hover:text-gray-700'>My Enrollment</Link>
+      {user && !isEducator &&(<div className='text-gray-600 flex flex-row items-center gap-2 sm:gap-4'>
+        <Link to="/educator" onClick={handleEducator} className='hidden md:flex text-sm hover:text-blue-600 transition-colors'>Become Educator</Link>
+        <p className='hidden md:flex'>|</p>
+        <Link to="/my-enrollement" className='hidden md:flex text-sm hover:text-blue-600 transition-colors'>My Enrollment</Link>
         <UserButton/>
       </div>)}
       {
-        isEducator && <button>Hi {user?.fullName}</button>
+        isEducator && <button className='text-sm sm:text-base font-medium text-gray-700'>Hi {user?.fullName?.split(' ')[0]}</button>
       }
     </div>
   )

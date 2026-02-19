@@ -3,31 +3,34 @@ import logo from "../../assets/assets/logo_dark.svg";
 
 const Footer = () => {
   return (
-    <div className='w-full bg-gray-900 text-white px-2 sm:px-4 pt-8 pb-4'>
-      <div className='flex flex-col md:flex-row items-center md:items-start justify-between max-w-6xl mx-auto gap-8'>
-      <div className='flex flex-col space-y-3 sm:space-y-5 text-gray-100 w-full md:w-1/4 items-center md:items-start'>
-        <img src={logo} alt="" className='w-20 h-20 mb-2'/>
-        <p className='text-center md:text-left text-sm sm:text-base'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</p>
-      </div>
-      <div className='flex flex-col text-gray-100 w-full md:w-1/4 items-center md:items-start'>
-        <div className='font-semibold mb-2'>Company</div>
-        <div className='flex flex-col text-center md:text-left gap-1'>
-          <p>Home</p>
-          <p>About us</p>
-          <p>Contact us</p>
-          <p>Privacy policy</p>
+    <div className='w-full bg-gray-900 text-white px-4 sm:px-6 md:px-8 py-10 sm:py-14 md:py-16'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 max-w-6xl mx-auto mb-8'>
+        <div className='flex flex-col space-y-4 text-gray-200 items-center sm:items-start'>
+          <img src={logo} alt="logo" className='w-20 h-20 object-contain'/>
+          <p className='text-center sm:text-left text-xs sm:text-sm leading-relaxed'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</p>
         </div>
-      </div>
-      <div className='flex flex-col space-y-3 sm:space-y-5 text-gray-100 w-full md:w-1/4 items-center md:items-start'>
-        <p className='font-semibold'>Subscribe to our newsletter</p>
-        <div className='w-full'>
-          <p className='text-center md:text-left text-xs sm:text-sm mb-2'>The latest news, articles, and resources, sent to your inbox weekly.</p>
-          <div className='flex flex-col sm:flex-row gap-2 sm:gap-5 w-full'>
-            <input type="text" className='border border-gray-500 rounded px-2 py-1 w-full sm:w-auto' placeholder='Enter your email' />
-            <button className='rounded-md bg-blue-500 text-white px-4 py-2 w-full sm:w-auto'>Subscribe</button>
+        <div className='flex flex-col text-gray-200 items-center sm:items-start'>
+          <div className='font-semibold text-base sm:text-lg mb-4'>Company</div>
+          <div className='flex flex-col text-center sm:text-left gap-2 text-sm'>
+            <p className='hover:text-blue-400 cursor-pointer transition-colors'>Home</p>
+            <p className='hover:text-blue-400 cursor-pointer transition-colors'>About us</p>
+            <p className='hover:text-blue-400 cursor-pointer transition-colors'>Contact us</p>
+            <p className='hover:text-blue-400 cursor-pointer transition-colors'>Privacy policy</p>
+          </div>
+        </div>
+        <div className='flex flex-col space-y-4 text-gray-200 items-center sm:items-start col-span-1 sm:col-span-2 lg:col-span-2'>
+          <p className='font-semibold text-base sm:text-lg'>Subscribe to our newsletter</p>
+          <div className='w-full'>
+            <p className='text-center sm:text-left text-xs sm:text-sm mb-3 leading-relaxed'>The latest news, articles, and resources, sent to your inbox weekly.</p>
+            <div className='flex flex-col sm:flex-row gap-3 sm:gap-2 w-full'>
+              <input type="email" className='border border-gray-600 rounded-lg px-4 py-2 bg-gray-800 text-white placeholder-gray-400 text-sm flex-1 focus:outline-none focus:border-blue-500' placeholder='Enter your email' />
+              <button className='rounded-lg bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 font-medium text-sm transition-colors whitespace-nowrap'>Subscribe</button>
+            </div>
           </div>
         </div>
       </div>
+      <div className='border-t border-gray-700 pt-6 text-center text-gray-400 text-xs sm:text-sm'>
+        <p>&copy; 2026 All Rights Reserved | LMS Platform</p>
       </div>
     </div>
   )
