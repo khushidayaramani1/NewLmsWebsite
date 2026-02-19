@@ -56,34 +56,33 @@ const AddCourse = () => {
     };
 
     return (
-        <div className="max-w-5xl mx-auto p-8 bg-white shadow-2xl rounded-3xl my-10 border border-gray-100">
-            <h1 className="text-4xl font-extrabold mb-10">New Course Studio</h1>
-            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-10'>
+        <div className="w-full max-w-3xl lg:max-w-5xl mx-auto p-2 sm:p-4 md:p-8 bg-white shadow-2xl rounded-2xl sm:rounded-3xl my-6 sm:my-10 border border-gray-100">
+            <h1 className="text-2xl sm:text-4xl font-extrabold mb-6 sm:mb-10 text-center">New Course Studio</h1>
+            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-6 sm:gap-10'>
                 
                 {/* COURSE BASICS: Simple inputs mapped directly to CourseDetail entity */}
-                <div className="bg-gray-50/50 p-8 rounded-2xl border border-gray-200 space-y-6">
-                    <h2 className="text-xl font-bold border-l-4 border-black pl-4">Course Basics</h2>
-                    <input {...register("courseTitle")} placeholder="Course Title" className="w-full p-2 border-b outline-none" />
-                    <textarea {...register("courseDescription")} placeholder="Description" className="w-full p-2 border rounded-xl" />
-                    <div className="grid grid-cols-2 gap-4">
-                        <input {...register("coursePrice")} placeholder="Price (e.g. 49)" className="p-2 border-b" />
+                <div className="bg-gray-50/50 p-4 sm:p-8 rounded-xl sm:rounded-2xl border border-gray-200 space-y-4 sm:space-y-6">
+                    <h2 className="text-lg sm:text-xl font-bold border-l-4 border-black pl-2 sm:pl-4">Course Basics</h2>
+                    <input {...register("courseTitle")} placeholder="Course Title" className="w-full p-2 border-b outline-none text-base" />
+                    <textarea {...register("courseDescription")} placeholder="Description" className="w-full p-2 border rounded-lg sm:rounded-xl text-base" />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                        <input {...register("coursePrice")} placeholder="Price (e.g. 49)" className="p-2 border-b text-base" />
                         <input type="file" {...register("thumbnailName")} className="text-sm" />
                     </div>
                 </div>
 
                 {/* CURRICULUM: The dynamic part of the form */}
-                <div className="space-y-6">
-                    <div className="flex justify-between items-center">
-                        <h2 className="text-2xl font-bold">Curriculum</h2>
+                <div className="space-y-4 sm:space-y-6">
+                    <div className="flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4">
+                        <h2 className="text-lg sm:text-2xl font-bold">Curriculum</h2>
                         <button 
                             type="button" 
                             onClick={() => appendChapter({ chapterTilte: "", chapterOrder: chapterFields.length + 1, lectures: [] })}
-                            className="bg-blue-600 text-white px-6 py-2 rounded-full font-bold shadow-md hover:bg-blue-700"
+                            className="bg-blue-600 text-white px-4 sm:px-6 py-2 rounded-full font-bold shadow-md hover:bg-blue-700 text-sm sm:text-base"
                         >
                             + Add Chapter
                         </button>
                     </div>
-
                     {/* Loop through chapters in the form state */}
                     {chapterFields.map((chapter, index) => (
                         <ChapterItem 
@@ -95,7 +94,7 @@ const AddCourse = () => {
                     ))}
                 </div>
 
-                <button className='bg-black text-white px-16 py-4 rounded-full self-center font-bold hover:scale-105 transition-transform'>
+                <button className='bg-black text-white px-8 sm:px-16 py-3 sm:py-4 rounded-full self-center font-bold hover:scale-105 transition-transform text-base sm:text-lg'>
                     SUBMIT COURSE FOR REVIEW
                 </button>
             </form>
@@ -112,31 +111,31 @@ const ChapterItem = ({ chapterIndex, register, control }) => {
     });
 
     return (
-        <div className="border-2 border-gray-200 p-8 rounded-3xl bg-white relative">
-            <div className="flex gap-4 mb-6">
+        <div className="border-2 border-gray-200 p-4 sm:p-8 rounded-xl sm:rounded-3xl bg-white relative">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-4 sm:mb-6">
                 <div className="flex-1">
                     <label className="text-xs font-bold text-gray-400 uppercase">Chapter Title</label>
-                    <input {...register(`chapters.${chapterIndex}.chapterTilte`)} placeholder="Chapter Title" className="w-full p-2 border-b focus:border-black outline-none" />
+                    <input {...register(`chapters.${chapterIndex}.chapterTilte`)} placeholder="Chapter Title" className="w-full p-2 border-b focus:border-black outline-none text-base" />
                 </div>
-                <div className="w-24">
+                <div className="w-20 sm:w-24">
                     <label className="text-xs font-bold text-gray-400 uppercase">Order</label>
-                    <input {...register(`chapters.${chapterIndex}.chapterOrder`)} placeholder="1" className="w-full p-2 border-b outline-none" />
+                    <input {...register(`chapters.${chapterIndex}.chapterOrder`)} placeholder="1" className="w-full p-2 border-b outline-none text-base" />
                 </div>
             </div>
 
-            <div className="ml-8 space-y-4">
+            <div className="ml-2 sm:ml-8 space-y-3 sm:space-y-4">
                 <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Lectures</p>
                 {lectureFields.map((lecture, lIndex) => (
-                    <div key={lecture.id} className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-gray-50 p-4 rounded-xl border border-gray-100">
-                        <input {...register(`chapters.${chapterIndex}.lectures.${lIndex}.lectureTitle`)} placeholder="Lecture Title" className="p-2 border rounded bg-white" />
-                        <input {...register(`chapters.${chapterIndex}.lectures.${lIndex}.lectureDuration`)} placeholder="Duration (min)" className="p-2 border rounded bg-white" />
-                        <input {...register(`chapters.${chapterIndex}.lectures.${lIndex}.lectureOrder`)} placeholder="Order" className="p-2 border rounded bg-white" />
+                    <div key={lecture.id} className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 bg-gray-50 p-2 sm:p-4 rounded-lg sm:rounded-xl border border-gray-100">
+                        <input {...register(`chapters.${chapterIndex}.lectures.${lIndex}.lectureTitle`)} placeholder="Lecture Title" className="p-2 border rounded bg-white text-base" />
+                        <input {...register(`chapters.${chapterIndex}.lectures.${lIndex}.lectureDuration`)} placeholder="Duration (min)" className="p-2 border rounded bg-white text-base" />
+                        <input {...register(`chapters.${chapterIndex}.lectures.${lIndex}.lectureOrder`)} placeholder="Order" className="p-2 border rounded bg-white text-base" />
                     </div>
                 ))}
                 <button 
                     type="button" 
                     onClick={() => appendLecture({ lectureTitle: "", lectureDuration: "", lectureOrder: lectureFields.length + 1 })}
-                    className="text-blue-500 text-sm font-bold hover:underline"
+                    className="text-blue-500 text-xs sm:text-sm font-bold hover:underline"
                 >
                     + Add Lecture to this Chapter
                 </button>

@@ -58,65 +58,52 @@ const MyEnrollement = () => {
   //   return total
   // }
 
-  if (!isLoaded) return <div className="p-10">Loading...</div>
-  if (!isSignedIn) return <div className="p-10">Please login</div>
+  if (!isLoaded) return <div className="min-h-screen flex items-center justify-center p-4 text-lg">Loading...</div>;
+  if (!isSignedIn) return <div className="min-h-screen flex items-center justify-center p-4 text-lg">Please login</div>;
 
   return (
-    <div className="px-36 pt-10 text-2xl flex flex-col space-y-10">
-      <div className="font-semibold mb-4">My Enrollments</div>
-
-      <table className="w-full text-left">
-        <thead className="border-b border-gray-500">
-          <tr>
-            <th className="pb-2">Course</th>
-            <th className="pb-2">Duration</th>
-            <th className="pb-2">Completed</th>
-            <th className="pb-2">Status</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {/* Note: Ensure you import or define your course data source here */}
-          {courses.map((course, index) => {
-            // const duration = calcDuration(course)
-            return (
-              <tr key={index} className="border-b border-gray-200">
-                <td className="py-4">
-                  <div className="flex items-center gap-x-5">
-                    <img
-                      className="w-24 h-14 object-cover"
-                      src={`http://localhost:8087/getImage?courseId=${course.courseId}`}
-                      alt=""
-                    />
-                    <p
-                      onClick={() => navigate(`/player/${course.courseId}`)}
-                      className="text-lg cursor-pointer hover:underline"
-                    >
-                      {course.courseTitle}
-                    </p>
-                  </div>
-                </td>
-
-                <td className="py-4 text-lg">
-                  {/* {Math.floor(duration / 60)} hrs {duration % 60} }mins */}
-                  60 mins hardcoded
-                </td>
-
-                <td className="py-4 text-lg">
-                  {/* 0 / {course.courseContent.length} */}
-                  0 / 4 hardcoded
-                </td>
-
-                <td className="py-4 text-lg text-blue-600">
-                  On Going
-                </td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+    <div className="w-full px-2 sm:px-4 md:px-8 lg:px-24 pt-6 sm:pt-10 flex flex-col space-y-6 sm:space-y-10">
+      <div className="font-semibold mb-2 sm:mb-4 text-xl sm:text-2xl">My Enrollments</div>
+      <div className="overflow-x-auto rounded-lg shadow">
+        <table className="min-w-[600px] w-full text-left text-base sm:text-lg bg-white">
+          <thead className="border-b border-gray-500 bg-gray-50">
+            <tr>
+              <th className="pb-2 px-2 sm:px-4">Course</th>
+              <th className="pb-2 px-2 sm:px-4">Duration</th>
+              <th className="pb-2 px-2 sm:px-4">Completed</th>
+              <th className="pb-2 px-2 sm:px-4">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {courses.map((course, index) => {
+              return (
+                <tr key={index} className="border-b border-gray-200">
+                  <td className="py-3 px-2 sm:px-4">
+                    <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-5">
+                      <img
+                        className="w-20 h-12 sm:w-24 sm:h-14 object-cover rounded"
+                        src={`http://localhost:8087/getImage?courseId=${course.courseId}`}
+                        alt=""
+                      />
+                      <p
+                        onClick={() => navigate(`/player/${course.courseId}`)}
+                        className="text-base sm:text-lg cursor-pointer hover:underline text-center sm:text-left"
+                      >
+                        {course.courseTitle}
+                      </p>
+                    </div>
+                  </td>
+                  <td className="py-3 px-2 sm:px-4 text-base sm:text-lg text-center">60 mins hardcoded</td>
+                  <td className="py-3 px-2 sm:px-4 text-base sm:text-lg text-center">0 / 4 hardcoded</td>
+                  <td className="py-3 px-2 sm:px-4 text-base sm:text-lg text-blue-600 text-center">On Going</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
-  )
+  );
 }
 
 export default MyEnrollement

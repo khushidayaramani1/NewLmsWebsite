@@ -64,28 +64,47 @@ const CourseDetail = () => {
     }
   };
 
-  if (loading || !isLoaded) return <div className="h-screen flex items-center justify-center font-bold">Loading...</div>;
-  if (!myCourse) return <div className="h-screen flex items-center justify-center">Course not found.</div>;
+  if (loading || !isLoaded)
+    return (
+      <div className="min-h-screen flex items-center justify-center font-bold text-lg md:text-2xl p-4">
+        Loading...
+      </div>
+    );
+  if (!myCourse)
+    return (
+      <div className="min-h-screen flex items-center justify-center text-center p-4">
+        Course not found.
+      </div>
+    );
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen">
-      <div className="w-full md:w-1/2 p-10 space-y-10">
+    <div className="flex flex-col md:flex-row min-h-screen bg-gray-50">
+      {/* Left: Course Details */}
+      <div className="w-full md:w-1/2 px-4 py-8 md:p-10 space-y-8 md:space-y-10">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">{myCourse.course_title}</h1>
-          <h2 className="text-xl font-semibold text-gray-700 mt-2">{myCourse.course_headings}</h2>
-          <p className="text-gray-600 mt-4">{myCourse.course_description}</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 break-words">{myCourse.course_title}</h1>
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-700 mt-2 break-words">{myCourse.course_headings}</h2>
+          <p className="text-gray-600 mt-4 text-base sm:text-lg break-words">{myCourse.course_description}</p>
         </div>
         <div className="w-full">
-          <h2 className="text-2xl font-bold mb-5">Course Structure</h2>
+          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-5">Course Structure</h2>
           <CourseDropdown courseContent={myCourse.course_content ? JSON.parse(myCourse.course_content) : []} />
         </div>
       </div>
 
-      <div className="w-full md:w-1/2 p-10 bg-gray-50 flex flex-col items-center">
-        <div className="bg-white border rounded-xl shadow-lg p-6 w-full max-w-md sticky top-10">
-          <img className="w-full h-56 object-cover rounded-lg" src={`http://localhost:8087/getImage?courseId=${myCourse.course_id}`} alt="course" />
-          <p className="text-4xl font-extrabold text-center my-6">₹{myCourse.course_price}</p>
-          <button onClick={handleEnrollClick} className="w-full bg-blue-600 text-white py-4 rounded-lg font-bold hover:bg-blue-700 transition-all">
+      {/* Right: Enrollment Card */}
+      <div className="w-full md:w-1/2 px-4 py-8 md:p-10 flex flex-col items-center">
+        <div className="bg-white border rounded-xl shadow-lg p-4 sm:p-6 w-full max-w-md md:sticky md:top-10">
+          <img
+            className="w-full h-40 sm:h-56 object-cover rounded-lg mb-4"
+            src={`http://localhost:8087/getImage?courseId=${myCourse.course_id}`}
+            alt="course"
+          />
+          <p className="text-3xl sm:text-4xl font-extrabold text-center my-4 sm:my-6">₹{myCourse.course_price}</p>
+          <button
+            onClick={handleEnrollClick}
+            className="w-full bg-blue-600 text-white py-3 sm:py-4 rounded-lg font-bold hover:bg-blue-700 transition-all text-base sm:text-lg"
+          >
             Enroll Now
           </button>
         </div>

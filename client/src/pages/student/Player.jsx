@@ -114,15 +114,15 @@ const Player = () => {
     );
   };
 
-  if (loading) return <div className="p-10 text-center font-bold animate-pulse text-blue-600">Loading Course Environment...</div>;
+  if (loading) return <div className="min-h-screen flex items-center justify-center p-4 text-center font-bold animate-pulse text-blue-600 text-lg sm:text-xl">Loading Course Environment...</div>;
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
       <Toaster />
       
       {/* 1. HEADER WITH GLOBAL PROGRESS */}
-      <div className="flex items-center justify-between px-8 py-4 bg-white border-b shrink-0 shadow-sm z-10">
-        <div className="w-1/3">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-2 sm:px-6 md:px-8 py-3 sm:py-4 bg-white border-b shrink-0 shadow-sm z-10">
+        <div className="w-full sm:w-1/3">
            <div className="flex justify-between mb-1 text-[11px] font-black text-blue-600 uppercase tracking-wider">
              <span>Course Completion</span>
              <span>{progressPercent}%</span>
@@ -134,7 +134,7 @@ const Player = () => {
              ></div>
            </div>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4 mt-2 sm:mt-0">
             <span className="text-xs font-bold text-gray-400">{completedCount} / {totalLectures} Lessons</span>
             <button 
                 onClick={() => navigate(`/showPaste/${courseId}`)} 
@@ -145,40 +145,40 @@ const Player = () => {
         </div>
       </div>
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 flex-col lg:flex-row overflow-hidden">
         
         {/* LEFT COLUMN: Video + Chapters List */}
-        <div className="flex-1 overflow-y-auto bg-white scroll-smooth"> 
+        <div className="flex-1 overflow-y-auto bg-white scroll-smooth">
           
           {/* Video Player Section */}
-          <div className="p-6 lg:p-10 bg-gray-900 shadow-inner">
-            <div className="max-w-5xl mx-auto">
+          <div className="p-2 sm:p-4 lg:p-10 bg-gray-900 shadow-inner">
+            <div className="max-w-3xl lg:max-w-5xl mx-auto">
               <div className="w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl relative border border-gray-800">
                 <img src={courseData?.courseThumbnail} className="w-full h-full object-cover opacity-40 blur-[2px]" alt="" />
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                   <div className="bg-white/10 p-6 rounded-full backdrop-blur-md mb-4 border border-white/20">
-                        <div className="w-12 h-12 border-4 border-t-blue-500 border-white/20 rounded-full animate-spin"></div>
+                   <div className="bg-white/10 p-4 sm:p-6 rounded-full backdrop-blur-md mb-3 sm:mb-4 border border-white/20">
+                        <div className="w-8 h-8 sm:w-12 sm:h-12 border-4 border-t-blue-500 border-white/20 rounded-full animate-spin"></div>
                    </div>
-                   <p className="text-white font-bold text-xl">{activeLecture?.lectureTitle || "Select a Lesson"}</p>
-                   <p className="text-blue-400 text-sm mt-2 font-medium tracking-wide">READY TO STREAM</p>
+                   <p className="text-white font-bold text-base sm:text-xl text-center">{activeLecture?.lectureTitle || "Select a Lesson"}</p>
+                   <p className="text-blue-400 text-xs sm:text-sm mt-2 font-medium tracking-wide">READY TO STREAM</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* CHAPTERS SECTION */}
-          <div className="max-w-5xl mx-auto p-6 lg:p-10">
-            <div className="flex items-center justify-between mb-8">
-                <div>
-                    <h2 className="text-3xl font-black text-gray-900 tracking-tight">Course Chapters</h2>
-                    <p className="text-gray-500 text-sm mt-1">Select a lecture to start learning</p>
-                </div>
-                <div className="hidden md:block bg-gray-100 px-4 py-2 rounded-xl border border-gray-200">
-                    <span className="text-xs font-bold text-gray-600">Total Duration: {allLectures.reduce((acc, curr) => acc + parseInt(curr.lectureDuration || 0), 0)} mins</span>
-                </div>
+            <div className="max-w-3xl lg:max-w-5xl mx-auto p-2 sm:p-6 lg:p-10">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 sm:mb-8">
+              <div className="w-full sm:w-auto text-center sm:text-left">
+                <h2 className="text-2xl sm:text-3xl font-black text-gray-900 tracking-tight">Course Chapters</h2>
+                <p className="text-gray-500 text-xs sm:text-sm mt-1">Select a lecture to start learning</p>
+              </div>
+              <div className="w-full sm:w-auto hidden md:block bg-gray-100 px-3 sm:px-4 py-2 rounded-xl border border-gray-200 text-center">
+                <span className="text-xs font-bold text-gray-600">Total Duration: {allLectures.reduce((acc, curr) => acc + parseInt(curr.lectureDuration || 0), 0)} mins</span>
+              </div>
             </div>
             
-            <div className="grid grid-cols-1 gap-8">
+            <div className="grid grid-cols-1 gap-4 sm:gap-8">
               {chapters.map((chapter, index) => {
                 const chapterLecs = chapter.lectures || [];
                 const completedInChapter = chapterLecs.filter(l => completedLectures.includes(l.lectureId)).length;
@@ -186,21 +186,21 @@ const Player = () => {
 
                 return (
                   <div key={chapter.chapter_id || chapter.chapterId || `chapter-${index}`} className="group">
-                    <div className="bg-white border-2 border-gray-100 rounded-3xl overflow-hidden shadow-sm group-hover:border-blue-100 transition-all duration-300">
+                    <div className="bg-white border-2 border-gray-100 rounded-2xl sm:rounded-3xl overflow-hidden shadow-sm group-hover:border-blue-100 transition-all duration-300">
                       
                       {/* Chapter Header Box */}
-                      <div className="px-8 py-6 bg-gray-50/50 border-b flex flex-wrap justify-between items-center gap-4">
-                        <div className="flex items-center gap-4">
-                            <span className="flex items-center justify-center w-10 h-10 rounded-2xl bg-gray-900 text-white text-sm font-black shadow-lg">
+                      <div className="px-4 sm:px-8 py-4 sm:py-6 bg-gray-50/50 border-b flex flex-wrap justify-between items-center gap-3 sm:gap-4">
+                        <div className="flex items-center gap-2 sm:gap-4">
+                          <span className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-gray-900 text-white text-xs sm:text-sm font-black shadow-lg">
                                 {index + 1}
                             </span>
                             <div>
-                                <h3 className="font-black text-gray-800 text-lg leading-tight uppercase tracking-tight">
+                                <h3 className="font-black text-gray-800 text-base sm:text-lg leading-tight uppercase tracking-tight">
                                     {/* Handle DB naming conventions */}
                                     {chapter.chapter_tilte || chapter.chapter_title || "Chapter " + (index+1)}
                                 </h3>
-                                <div className="flex items-center gap-3 mt-1">
-                                    <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md uppercase">
+                                <div className="flex items-center gap-2 sm:gap-3 mt-1">
+                                  <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md uppercase">
                                         {chapterLecs.length} Lessons
                                     </span>
                                     <span className="text-[10px] font-bold text-gray-400">{completedInChapter} / {chapterLecs.length} Done</span>
@@ -209,13 +209,13 @@ const Player = () => {
                         </div>
                         
                         {/* Chapter Progress Mini-Bar */}
-                        <div className="w-32">
-                             <div className="w-full bg-gray-200 h-1.5 rounded-full overflow-hidden">
-                                <div 
-                                    className="bg-green-500 h-full transition-all duration-1000" 
-                                    style={{ width: `${chapterPercent}%` }}
-                                />
-                             </div>
+                        <div className="w-20 sm:w-32">
+                           <div className="w-full bg-gray-200 h-1 rounded-full overflow-hidden">
+                            <div 
+                              className="bg-green-500 h-full transition-all duration-1000" 
+                              style={{ width: `${chapterPercent}%` }}
+                            />
+                           </div>
                         </div>
                       </div>
 
@@ -229,7 +229,7 @@ const Player = () => {
                                   setActiveLecture(lecture);
                                   document.querySelector('.bg-gray-900').scrollIntoView({ behavior: 'smooth' });
                                 }}
-                                className={`flex items-center gap-4 px-8 py-5 cursor-pointer transition-colors ${
+                                className={`flex items-center gap-2 sm:gap-4 px-4 sm:px-8 py-3 sm:py-5 cursor-pointer transition-colors ${
                                   activeLecture?.lectureId === lecture.lectureId 
                                     ? 'bg-blue-50/70 border-l-4 border-l-blue-600' 
                                     : 'hover:bg-gray-50'
@@ -243,7 +243,7 @@ const Player = () => {
                                   className="accent-blue-600 h-4 w-4 rounded cursor-pointer" 
                                 />
                                 <div className="flex-1">
-                                  <p className={`text-sm font-medium ${activeLecture?.lectureId === lecture.lectureId ? 'text-blue-700' : 'text-gray-700'}`}>
+                                  <p className={`text-xs sm:text-sm font-medium ${activeLecture?.lectureId === lecture.lectureId ? 'text-blue-700' : 'text-gray-700'}`}>
                                     {lecture.lectureTitle}
                                   </p>
                                 </div>
@@ -265,16 +265,16 @@ const Player = () => {
         </div>
 
         {/* RIGHT COLUMN: Chat Sidebar */}
-        <div className="w-80 lg:w-96 border-l bg-gray-50 flex flex-col shrink-0 shadow-2xl">
-          <div className="p-6 bg-white border-b flex items-center justify-between">
-            <h3 className="font-black text-gray-800 uppercase tracking-tighter text-sm">AI Tutor Assistant</h3>
+        <div className="w-full max-w-full lg:w-80 xl:w-96 border-t lg:border-t-0 lg:border-l bg-gray-50 flex flex-col shrink-0 shadow-2xl">
+          <div className="p-4 sm:p-6 bg-white border-b flex items-center justify-between">
+            <h3 className="font-black text-gray-800 uppercase tracking-tighter text-xs sm:text-sm">AI Tutor Assistant</h3>
             <div className="flex gap-1">
                 <span className="w-2 h-2 rounded-full bg-green-500"></span>
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
             </div>
           </div>
-          <div className="flex-1 p-4 bg-gray-50">
-             <div className="h-full bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+          <div className="flex-1 p-2 sm:p-4 bg-gray-50">
+             <div className="h-full bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
                 <Chat />
              </div>
           </div>
