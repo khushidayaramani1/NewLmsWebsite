@@ -1,81 +1,137 @@
-Project Name: Learning Management System (LMS)
-Project Description
-A full-stack online learning platform with dual-role architecture that enables educators to create and manage courses while students can browse, enroll, and learn through structured video-based curriculum.
-<img width="1919" height="911" alt="image" src="https://github.com/user-attachments/assets/ccf0ff2b-73e1-405a-9247-3210323efe7c" />
+<h1 align="center">🎓 Learning Management System (LMS)</h1>
 
-Core Features
-👨‍🎓 Student Features:
- 
-Course Enrollment System - Simple enrollment flow with course details and curriculum preview
-<img width="1883" height="816" alt="image" src="https://github.com/user-attachments/assets/d2858a03-53f1-44ad-b6c7-777d70f4e078" />
+<p align="center">
+A Full-Stack Online Learning Platform built using <b>Spring Boot (MVC)</b>, <b>REST APIs</b>, <b>MySQL</b>, and <b>React 19</b>.
+</p>
 
-Video-Based Learning - Built-in video player with play controls, progress tracking
-<img width="1919" height="906" alt="image" src="https://github.com/user-attachments/assets/7acb47cd-d94c-4d50-8cb3-2aa162ce5874" />
+<hr/>
 
-Structured Curriculum - Organized by chapters and lectures with duration tracking, AI Chatbot Assistant - Real-time learning help and course guidance
-<img width="1904" height="730" alt="image" src="https://github.com/user-attachments/assets/4b01773a-df7a-492d-8a44-97a0047eab04" />
+<h2>🚀 Project Overview</h2>
 
-Progress Tracking - Mark lectures as completed, progress persists in localStorage
-<img width="1918" height="527" alt="image" src="https://github.com/user-attachments/assets/5a930d8e-9949-445d-8164-621499fe4ee3" />
+<p>
+The Learning Management System (LMS) enables educators to create and manage courses, 
+while students can browse, enroll, and learn through a structured video-based curriculum.
+</p>
 
-Note Taking System - Integrated note-taking tied to each course 
-<img width="1898" height="874" alt="image" src="https://github.com/user-attachments/assets/aef75650-bf01-4649-ad64-ad72b9adb64d" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ccf0ff2b-73e1-405a-9247-3210323efe7c" width="100%" />
+</p>
 
-Course Ratings & Reviews - Star rating system and testimonials
-<img width="1919" height="826" alt="image" src="https://github.com/user-attachments/assets/1d6c9d01-7d26-458d-9449-da223b7c5bcf" />
+<ul>
+  <li>👨‍🎓 Dual-role system (Student & Educator)</li>
+  <li>🔐 Secure authentication with Clerk</li>
+  <li>📡 RESTful API integration</li>
+  <li>🗄 MySQL Database</li>
+  <li>🏗 Backend built using Spring Boot MVC Architecture</li>
+</ul>
 
+<hr/>
 
-Responsive Mobile UI - Works seamlessly on mobile, tablet, and desktop
+<h2>🛠 Tech Stack</h2>
 
-My Enrollments Dashboard - View all enrolled courses and continue learning
-👨‍🏫 Educator Features:
-Course Creation - Build courses with chapters, lectures, and video organization
+<h3>Frontend</h3>
+<ul>
+  <li>React 19 + Vite</li>
+  <li>Tailwind CSS</li>
+  <li>Redux Toolkit</li>
+  <li>React Router</li>
+  <li>Clerk Authentication</li>
+</ul>
 
-Content Management - Upload chapters and lectures with metadata
+<h3>Backend</h3>
+<ul>
+  <li>Spring Boot (Model-View-Controller Architecture)</li>
+  <li>REST APIs</li>
+  <li>Spring Data JPA</li>
+  <li>MySQL Database</li>
+  <li>Java Mail (MimeMessage for Email Notifications)</li>
+</ul>
 
-Student Analytics - View list of enrolled students for each course
+<hr/>
 
-Curriculum Builder - Structure and organize course content
+<h2>👨‍🎓 Student Features</h2>
 
-🔐 Authentication & Authorization:
-Clerk Authentication (secure sign-up/login)
-Role-based access control (Student vs Educator routes)
-Session management with persistent login
-<img width="1912" height="427" alt="image" src="https://github.com/user-attachments/assets/f3642e43-893a-449a-90b7-e2a27978a45b" />
- 
+<h4>📌 Course Enrollment System</h4>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d2858a03-53f1-44ad-b6c7-777d70f4e078" width="100%" />
+</p>
 
-🎨 UI/UX Components:
-Hero section with call-to-action
-Featured courses carousel
-Course cards with ratings and quick info
-Testimonial section
-Navigation bar with auth integration
-Loading states and spinners
-Toast notifications for user feedback
-Rich text editor for course descriptions and notes
-Tech Stack
-Frontend Framework: React 19.2, Vite 7.2
-Styling: Tailwind CSS 4.1 with typography plugin
-State Management: Redux Toolkit 2.11
-Routing: React Router 7.10
-Authentication: Clerk Auth
-Rich Text: Quill 2.0
-Icons: Lucide React, React Icons
-Forms: React Hook Form
-Notifications: React Hot Toast
-UI Components: React Simple Star Rating, RC Progress
-Utilities: Humanize Duration, Uniqid, HTML React Parser
+<h4>🎥 Video-Based Learning</h4>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e891d0b1-c924-43e5-92c4-a7e341e1aa2d" width="100%" />
+</p>
 
-Project Structure
-Key Accomplishments to Highlight
-Dual-Role System - Implemented separate student and educator experiences with role-based routing
-Real-time Progress Tracking - localStorage persistence for lecture completion status across sessions
-Responsive Design - Mobile-first Tailwind CSS implementation
-API Integration - RESTful backend communication for courses, chapters, lectures
-Authentication - Clerk integration for secure user management
-Rich UI - Testimonials, ratings, search, filtering, course cards with dynamic data
- 
+<h4>📚 Structured Curriculum & AI Chatbot</h4>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4b01773a-df7a-492d-8a44-97a0047eab04" width="100%" />
+</p>
 
-Technologies: React 19, Vite, Tailwind CSS, React Router, Clerk Authentication, REST APIs SpringBoot
+<h4>📊 Progress Tracking</h4>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5a930d8e-9949-445d-8164-621499fe4ee3" width="100%" />
+</p>
 
- 
+<h4>📝 Note Taking System</h4>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/aef75650-bf01-4649-ad64-ad72b9adb64d" width="100%" />
+</p>
+
+<h4>⭐ Ratings & Reviews</h4>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1d6c9d01-7d26-458d-9449-da223b7c5bcf" width="100%" />
+</p>
+
+<h4>📧 Email Notification System</h4>
+<p>
+Automated transactional emails implemented using Spring Boot MimeMessage.
+</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a443963a-3da4-48a5-9748-007b26383000" width="80%" />
+</p>
+
+<hr/>
+
+<h2>🔐 Authentication & Authorization</h2>
+
+<ul>
+  <li>Clerk Secure Authentication</li>
+  <li>Role-Based Access Control</li>
+  <li>Protected Routes</li>
+  <li>Persistent Sessions</li>
+</ul>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f3642e43-893a-449a-90b7-e2a27978a45b" width="100%" />
+</p>
+
+<hr/>
+
+<h2>👨‍🏫 Educator Features</h2>
+
+<ul>
+  <li>Create & Manage Courses</li>
+  <li>Upload Chapters and Lectures</li>
+  <li>Curriculum Builder</li>
+  <li>View Enrolled Students</li>
+</ul>
+
+<hr/>
+
+<h2>🧠 Architecture</h2>
+
+<h3>Backend Architecture</h3>
+<ul>
+  <li>Model-View-Controller (MVC)</li>
+  <li>Controller → Service → Repository Layered Design</li>
+  <li>RESTful API Communication</li>
+</ul>
+
+<h3>Database</h3>
+<ul>
+  <li>MySQL Relational Database</li>
+  <li>Entity Relationships using JPA</li>
+</ul>
+
+<hr/>
+
+<h2 align="center">💻 Built With Passion Using React + Spring Boot 🚀</h2>
