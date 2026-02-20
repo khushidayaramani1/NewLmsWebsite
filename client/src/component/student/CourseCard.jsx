@@ -1,4 +1,5 @@
 import React from "react";
+import Rating from "./Rating";
 
 const CourseCard = ({ image, courseName, price, rating }) => {
   return (
@@ -17,12 +18,12 @@ const CourseCard = ({ image, courseName, price, rating }) => {
       <div className="flex flex-col justify-between flex-1 p-5">
 
         <div>
-          <h3 className="text-lg font-semibold text-slate-800 mb-2 line-clamp-2">
+          <h3 onClick={()=>Navigate('/course-list')} className="text-lg font-semibold text-slate-800 mb-2 line-clamp-2">
             {courseName}
           </h3>
 
           <div className="flex items-center gap-2 text-yellow-500 mb-3">
-            ⭐ <span className="text-slate-600 font-medium">{rating}</span>
+             <span className="text-slate-600 font-medium"></span><Rating rating={rating} />
           </div>
         </div>
 

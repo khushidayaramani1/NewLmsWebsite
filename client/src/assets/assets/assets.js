@@ -752,6 +752,7 @@ export const dummyCourses = [
         "__v": 1,
         "courseThumbnail": "https://img.youtube.com/vi/631lFJdQvoo/maxresdefault.jpg"
     },
+     
     {
         "id": "605c72efb3f1c2b1f8e4e1ab",
         "courseTitle": "Introduction to Cybersecurity",

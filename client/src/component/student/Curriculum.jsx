@@ -37,6 +37,7 @@ const Curriculum = ({ courseId, activeLecture, setActiveLecture, completedLectur
               const lecRes = await fetch(`http://localhost:8087/get-lecture-by-chapterId/${chapterId}`);
               if (!lecRes.ok) throw new Error(`Failed to fetch lectures for chapter ${chapterId}`);
               const lectures = await lecRes.json();
+              console.log(`Raw API response for chapter ${chapterId}:`, lectures);
               return {
                 ...chapter,
                 lectures: Array.isArray(lectures) ? lectures : Object.values(lectures || {})
@@ -54,14 +55,21 @@ const Curriculum = ({ courseId, activeLecture, setActiveLecture, completedLectur
           order: chapter.chapter_order || 0,
           title: chapter.chapter_tilte || chapter.chapter_title || chapter.title || 'Untitled Chapter',
           lectures: chapter.lectures.map((lec, lecIdx) => ({
-            id: lec.lectureId || lec.id || `lec-${chapter.id}-${lecIdx}`,
+            id: lec.lecture_id || lec.lectureId || lec.id || `lec-${chapter.id}-${lecIdx}`,
             title: lec.lectureTitle || lec.lecture_title || lec.title || 'Untitled Lesson',
-            duration: lec.lectureDuration || lec.duration || 0,
-            videoUrl: lec.lecture_url || lec.videoUrl || lec.url
+            duration: lec.lecture_duration || lec.duration || 0,
+            videoUrl: lec.lectureUrl || lec.lecture_url || lec.videoUrl || lec.video_url || ''
           }))
         }));
 
         setChapters(normalized);
+
+        console.log("Fetched Curriculum:", normalized);
+        normalized.forEach(chapter => {
+          chapter.lectures.forEach(lec => {
+            console.log(`Lecture: ${lec.title} - videoUrl:`, lec.videoUrl);
+          });
+        });
       } catch (err) {
         console.error('Curriculum Fetch Error:', err);
         setError(err.message || 'Failed to load curriculum');
@@ -112,7 +120,7 @@ const Curriculum = ({ courseId, activeLecture, setActiveLecture, completedLectur
                       onClick={(e) => e.stopPropagation()}
                       className="w-4 h-4 accent-blue-600"
                     />
-                    <span className="text-sm flex-1">{lecture.title}</span>
+                    <span onClick={()=>console.log(lecture)} className="text-sm flex-1">{lecture.title}</span>
                     <span className="text-[10px] text-gray-400 font-mono">{lecture.duration}m</span>
                   </div>
                 ))

@@ -12,7 +12,7 @@ import java.util.Map;
 @Repository
 public interface LectureRepo extends JpaRepository<Lecture,Integer> {
 
-    @Query(value="select lecture_duration,lecture_order,lecture_title from lecture where chapter_id=:chapterId;",
-    nativeQuery = true)
+    @Query(value="select lecture_id,lecture_duration,lecture_order,lecture_title,lecture_url from lecture where chapter_id=:chapterId;",
+            nativeQuery = true)
     List<Map<String,Object>> getLectureByChapterId(@Param("chapterId") int chapterId);
 }

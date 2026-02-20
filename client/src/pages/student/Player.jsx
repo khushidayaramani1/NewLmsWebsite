@@ -42,6 +42,8 @@ const Player = () => {
     return () => { isMounted = false; };
   }, [courseId]);
 
+  console.log("Course Data:", courseData);
+
   // Handle Progress Checkboxes
   const toggleComplete = (e, id) => {
     e.stopPropagation();
@@ -78,11 +80,35 @@ const Player = () => {
         <div className="flex-1 overflow-y-auto bg-white scroll-smooth">
           <div className="p-4 bg-gray-900 flex justify-center">
             <div className="w-full max-w-4xl aspect-video bg-black rounded-xl overflow-hidden shadow-2xl">
-              {activeLecture?.videoUrl ? (
-                <video key={activeLecture.id} controls className="w-full h-full">
-                  <source src={activeLecture.videoUrl} type="video/mp4" />
-                </video>
-              ) : <div className="h-full flex items-center justify-center text-gray-500">Video not found</div>}
+  
+              {/* 🔥 If lecture selected → show video */}
+              {activeLecture ? (
+                activeLecture.videoUrl ? (
+                  <video
+                    key={activeLecture.id}
+                    controls
+                    autoPlay
+                    className="w-full h-full"
+                  >
+                    <source src={activeLecture.videoUrl} type="video/mp4" />
+                  </video>
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-gray-800 text-white text-center p-4">
+                    <div>
+                      <p className="font-bold text-lg mb-2">Video not available</p>
+                      <p className="text-sm text-gray-400">Selected lecture: {activeLecture.title}</p>
+                    </div>
+                  </div>
+                )
+              ) : (
+                /* 🖼 If no lecture selected → show thumbnail */
+                <img
+                  src={`http://localhost:8087/getImage?courseId=${courseId}`}
+                  alt="Course Thumbnail"
+                  className="w-full h-full object-cover"
+                />
+              )}
+
             </div>
           </div>
 
@@ -93,10 +119,13 @@ const Player = () => {
             completedLectures={completedLectures}
             toggleComplete={toggleComplete}
           />
+
         </div>
+
         <div className="w-80 xl:w-96 border-l bg-gray-50 p-4 shrink-0 hidden lg:block">
            <div className="h-full bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden"><Chat /></div>
         </div>
+
       </div>
     </div>
   );
