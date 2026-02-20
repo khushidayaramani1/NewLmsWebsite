@@ -1,41 +1,77 @@
-
-import {Link} from 'react-router-dom';
-import { FaArrowRight } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import CourseCard from './CourseCard.jsx';
-import course_1 from '../../assets/assets/course_1.png';
-
-
 
 const CourseSection = () => {
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTopCourses = async () => {
+      try {
+        const response = await fetch('http://localhost:8087/get-four-courses');
+        if (!response.ok) throw new Error('Failed to fetch courses');
+        const data = await response.json();
+        const fetchedData = Array.isArray(data) ? data : data.courses;
+        setCourses(fetchedData);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTopCourses();
+  }, []);
+
   return (
-    <div className='max-w-7xl mx-auto px-6 py-20'>
-      <div className='flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6'>
-        <div className='max-w-xl'>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Learn from the best</h2>
-          <p className="text-slate-500 text-lg">Discover top-rated courses across various categories crafted to deliver real-world results.</p>
-        </div>
+    <div className='flex flex-col gap-y-8! max-w-9xl mx-auto px-6 py-16 md:py-24'>
+      
+      {/* Header */}
+      <div className='text-center md:text-left mb-12'>
+        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          Learn from the best
+        </h2>
+        <p className="text-slate-500 text-lg max-w-xl">
+          Discover top-rated courses across various categories crafted to deliver real-world results.
+        </p>
+      </div>
+
+      <div className=''> 
+        {/* Loading */}
+        {loading ? (
+          <div className="text-center text-slate-500 text-lg">
+            Loading courses...
+          </div>
+        ) : (
+          
+          <div className="flex  md:gap-8   w-full overflow-x-auto py-4">
+            {courses.map((elem) => (
+              <div key={elem.course_id} className="w-full">
+                <CourseCard  
+                  image={`http://localhost:8087/getImage?courseId=${elem.course_id}`} 
+                  courseName={elem.course_title} 
+                  price={elem.course_price}
+                  rating={elem.course_rating || "4.5"} 
+                />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* See All Button */}
+      <div className='mt-16 md:mt-24 flex justify-center items-center'>
         <Link 
           to="/course-list" 
-          onClick={() => window.scrollTo(0,0)}
-          className="hidden md:flex items-center gap-2 text-blue-600 font-semibold hover:gap-4 transition-all"
+          onClick={() => window.scrollTo(0, 0)}
+          className="group px-10 md:px-14 py-4 md:py-5 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-700 transition-all duration-300 shadow-lg shadow-blue-200/50 flex items-center gap-2 active:scale-95"
         >
-          View all courses <FaArrowRight size={14}/>
-        </Link>
-      </div>
-
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8'>
-        {/* Course Cards go here - ensure the Card has a hover:shadow-xl and hover:-translate-y-2 */}
-        <CourseCard image={course_1} courseName="Build Text to image SaaS App" rating="4.8" price="67.8" />
-        {/* ... others */}
-      </div>
-
-      <div className='mt-12 md:hidden flex justify-center'>
-        <Link to="/course-list" className="bg-white border border-slate-200 px-8 py-3 rounded-full font-medium text-slate-700 shadow-sm">
-          Show all Courses
+          See All Courses
+          <span className="group-hover:translate-x-1 transition-transform">→</span>
         </Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default CourseSection;

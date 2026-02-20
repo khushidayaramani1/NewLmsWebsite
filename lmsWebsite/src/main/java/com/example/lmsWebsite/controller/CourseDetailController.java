@@ -66,6 +66,15 @@ public class CourseDetailController {
                 .body(byteArray);
     }
 
+    @GetMapping("/get-four-courses")
+    public List<Map<String,Object>> getFourCourses(){
+        List<Map<String , Object>> map = courseDetailService.getAllCourses();
+        while(map.size()!=4){
+            map.remove(map.size()-1);
+        }
+        return map;
+    }
+
     @GetMapping("/all-courses")
     public List<Map<String,Object>> getAllCourses(){
         return courseDetailService.getAllCourses();

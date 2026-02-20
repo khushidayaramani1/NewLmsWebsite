@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+
 const Curriculum = ({ courseId, activeLecture, setActiveLecture, completedLectures, toggleComplete }) => {
   const [chapters, setChapters] = useState([]);
   const [loading, setLoading] = useState(true);

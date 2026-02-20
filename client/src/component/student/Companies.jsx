@@ -1,37 +1,38 @@
-import React from 'react'
-// Ensure these paths are correct relative to this file
-import accenture from '../../assets/assets/accenture_logo.svg'
-import microsoft from '../../assets/assets/microsoft_logo.svg'
-import walmart from '../../assets/assets/walmart_logo.svg'
-import adobe from '../../assets/assets/adobe_logo.svg'
-import paypal from '../../assets/assets/paypal_logo.svg'
+import React from 'react';
+import microsoft from '../../assets/assets/microsoft_logo.svg'; 
+import walmart from '../../assets/assets/walmart_logo.svg'; 
+import accenture from '../../assets/assets/accenture_logo.svg';
+import adobe from '../../assets/assets/adobe_logo.svg';
 
 const Companies = () => {
-  // 1. Define the array INSIDE the component so it has access to the imports
   const logos = [
-    { src: microsoft, alt: "Microsoft" },
-    { src: walmart, alt: "Walmart" },
-    { src: accenture, alt: "Accenture" },
-    { src: adobe, alt: "Adobe" },
-    { src: paypal, alt: "PayPal" },
+    { src: microsoft, alt: "Microsoft", url: "https://www.microsoft.com" },
+    { src: walmart, alt: "Walmart", url: "https://www.walmart.com" },
+    { src: accenture, alt: "Accenture", url: "https://www.accenture.com" },
+    { src: adobe, alt: "Adobe", url: "https://www.adobe.com" },
   ];
 
   return (
-    <div className='flex flex-col items-center justify-center px-6 py-10'>
-      <p className='text-slate-500 text-xs sm:text-sm font-semibold uppercase tracking-[0.3em] mb-12 opacity-70'>
+    <div className='flex flex-col items-center justify-center w-full px-6 py-3 md:py-6 bg-white'>
+      <p className='text-blue-600 text-xl  font-bold uppercase tracking-[0.3em] text-center mb-10!'>
         Trusted by learners at
       </p>
       
-      {/* Aesthetic Logo Cloud */}
-      <div className='flex flex-wrap justify-center items-center gap-10 md:gap-20 max-w-6xl w-full'>
+      <div className='flex flex-wrap justify-center items-center gap-8 md:gap-16 lg:gap-20 w-full max-w-6xl'>
         {logos.map((logo, index) => (
-          <div key={index} className="group">
+          <a 
+            key={index} 
+            href={logo.url} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="group transition-all duration-300 hover:scale-110 opacity-70 hover:opacity-100"
+          >
             <img 
               src={logo.src} 
               alt={logo.alt} 
-              className='h-7 sm:h-9 md:h-11 w-auto object-contain filter grayscale brightness-125 opacity-40 group-hover:grayscale-0 group-hover:opacity-100 group-hover:brightness-100 transition-all duration-500 cursor-pointer transform group-hover:scale-110' 
+              className='h-7 sm:h-8 md:h-10 w-auto object-contain   group-hover:grayscale-0 transition-all duration-300' 
             />
-          </div>
+          </a>
         ))}
       </div>
     </div>

@@ -1,32 +1,45 @@
-import React, { useContext } from 'react'
-import { IoIosStar } from "react-icons/io";
-import { AppContext } from '../../context/AppContext';
+import React from "react";
 
-const CourseCard = (props) => {
-  const currency = useContext(AppContext)
+const CourseCard = ({ image, courseName, price, rating }) => {
   return (
-    <div className='w-full sm:w-72 md:w-80 lg:w-72 xl:w-80 border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300'>
-      <img src={props.image} alt="course" className='w-full h-40 sm:h-48 object-cover' />
-      <div className='flex flex-col items-start gap-2 p-3 sm:p-4'>
-        <h4 className='font-semibold text-left text-xs sm:text-sm line-clamp-2'>{props.courseName}</h4>
-        <p className='text-gray-500 font-medium text-xs sm:text-sm'>GreatStack</p>
-        <div className='flex items-center gap-1 text-xs sm:text-sm'>
-          <span className='font-medium'>{props.rating}</span>
-          <div className='flex items-center'>
-            {Array.from({ length: 5 }).map((_, index) => (
-              <IoIosStar
-                key={index}
-                size={14}
-                className={index < props.rating ? "text-[#FF4500]" : "text-gray-300"}
-              />
-            ))}
+    <div className="w-full h-full bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col overflow-hidden">
+
+      {/* Image */}
+      <div className="overflow-hidden">
+        <img
+          src={image}
+          alt={courseName}
+          className="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
+        />
+      </div>
+
+      {/* Content */}
+      <div className="flex flex-col justify-between flex-1 p-5">
+
+        <div>
+          <h3 className="text-lg font-semibold text-slate-800 mb-2 line-clamp-2">
+            {courseName}
+          </h3>
+
+          <div className="flex items-center gap-2 text-yellow-500 mb-3">
+            ⭐ <span className="text-slate-600 font-medium">{rating}</span>
           </div>
-          <span className='text-gray-400'>({props.rating})</span>
         </div>
-        <p className='font-semibold text-sm sm:text-base'>{currency}{props.price}</p>
+
+        {/* Price + Button */}
+        <div className="flex items-center justify-between mt-4">
+          <span className="text-blue-600 font-bold text-lg">
+            ₹{price}
+          </span>
+
+          <button className="px-4 py-2 bg-blue-100 text-blue-600 rounded-lg font-medium hover:bg-blue-200 transition">
+            Enroll
+          </button>
+        </div>
+
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CourseCard
+export default CourseCard;

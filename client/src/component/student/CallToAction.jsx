@@ -1,30 +1,36 @@
-import React from 'react'
-import { FaArrowRight } from 'react-icons/fa'
+import React from 'react';
+import { FaArrowRight, FaRocket } from 'react-icons/fa';
 
 const CallToAction = () => {
   return (
-    <div className='px-6 py-10'>
-      <div className="relative overflow-hidden bg-slate-900 rounded-[2rem] p-8 md:p-20 text-center max-w-6xl mx-auto shadow-2xl">
-        {/* Glow effect */}
-        <div className="absolute -top-24 -left-24 w-64 h-64 bg-blue-600/20 rounded-full blur-[100px]" />
+    <div className='px-6 py-9 md:py-20 ml-40! bg-white w-full'>
+      <div className="relative overflow-hidden bg-[#0f172a] rounded-[2.5rem] p-10 md:p-20 text-center max-w-6xl mx-auto shadow-2xl">
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px]" />
         
-        <h2 className="relative z-10 font-bold text-3xl md:text-5xl text-white mb-6 leading-tight">
-          Ready to start your <br className='hidden md:block'/> learning journey?
-        </h2>
-        <p className="relative z-10 text-slate-400 text-lg max-w-2xl mx-auto mb-10">
-          Join over 10,000+ students already learning on our platform. Access world-class education anywhere.
-        </p>
-        <div className="relative z-10 flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="bg-blue-600 hover:bg-blue-500 text-white px-10 py-4 rounded-full font-bold transition-all shadow-lg shadow-blue-600/30">
-            Get Started Now
-          </button>
-          <button className="bg-slate-800 hover:bg-slate-700 text-white px-10 py-4 rounded-full font-bold transition-all flex items-center justify-center gap-2">
-            Learn More <FaArrowRight size={14}/>
-          </button>
+        <div className="relative z-10 flex flex-col items-center">
+          <div className="mb-6 p-3 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm inline-block">
+            <FaRocket className="text-blue-400 text-xl" />
+          </div>
+
+          <h2 className="font-extrabold text-4xl md:text-6xl text-white mb-6 tracking-tight leading-[1.1]">
+            Ready to shape your <br className='hidden md:block'/> 
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
+              professional future?
+            </span>
+          </h2>
+
+          <div className="flex flex-col sm:flex-row gap-5 mt-4">
+            <button className="bg-blue-600 hover:bg-blue-500 text-white px-10 py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-3 active:scale-95">
+              Get Started Now <FaArrowRight />
+            </button>
+            <button className="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-10 py-4 rounded-xl font-bold transition-all backdrop-blur-md active:scale-95">
+              Contact Sales
+            </button>
+          </div>
         </div>
       </div>
     </div>
   )
 }
 
-export default CallToAction
+export default CallToAction;
