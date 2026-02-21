@@ -129,6 +129,7 @@ Automated transactional emails implemented using Spring Boot MimeMessage.
 <h3>Database</h3>
 <ul>
   <li>MySQL Relational Database</li>
+  
   <li>Entity Relationships using JPA</li>
 </ul>
 
