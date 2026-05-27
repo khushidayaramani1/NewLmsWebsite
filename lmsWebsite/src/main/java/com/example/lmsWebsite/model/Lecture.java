@@ -12,55 +12,57 @@ public class Lecture {
     private String lectureDuration;
     private int lectureOrder;
     private String lectureUrl;
+    private String videoName;
+    private String videoPath;
+    public String getVideoName() {
+        return videoName;
+    }
+    public void setVideoName(String videoName) {
+        this.videoName = videoName;
+    }
+    public String getVideoPath() {
+        return videoPath;
+    }
+    public void setVideoPath(String videoPath) {
+        this.videoPath = videoPath;
+    }
     @ManyToOne
     @JoinColumn(name="chapterId", nullable = false)
     @JsonBackReference
     Chapter chapter;
-
     public int getLectureId() {
         return lectureId;
     }
-
     public void setLectureId(int lectureId) {
         this.lectureId = lectureId;
     }
-
     public String getLectureTitle() {
         return lectureTitle;
     }
-
     public void setLectureTitle(String lectureTitle) {
         this.lectureTitle = lectureTitle;
     }
-
     public String getLectureDuration() {
         return lectureDuration;
     }
-
     public void setLectureDuration(String lectureDuration) {
         this.lectureDuration = lectureDuration;
     }
-
     public int getLectureOrder() {
         return lectureOrder;
     }
-
     public void setLectureOrder(int lectureOrder) {
         this.lectureOrder = lectureOrder;
     }
-
     public String getLectureUrl() {
         return lectureUrl;
     }
-
     public void setLectureUrl(String lectureUrl) {
         this.lectureUrl = lectureUrl;
     }
-
     public Chapter getChapter() {
         return chapter;
     }
-
     public void setChapter(Chapter chapter) {
         this.chapter = chapter;
     }

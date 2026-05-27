@@ -28,6 +28,10 @@ public interface UserRepo extends JpaRepository<User,Long> {
     nativeQuery = true)
     public int setIsEducator(@Param("clerkId") String clerkId);
 
+    @Query(value = "select email from users;",
+    nativeQuery = true)
+    public List<String> getAllEmails();
+
 
 
 }
